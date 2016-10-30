@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-us" />
+<title>City Navigator &mdash; Manchester</title>
+<style>
+body {
+    margin: 2em;
+}
+
+p {
+    max-width: 40em;
+}
+
+.picture {
+    float: left;
+    width: 300px;
+    margin-right: 2em;
+}
+.picture img {
+    width: 100%;
+    border: solid thin black;
+}
+.picture div {
+    margin: 0.5em 0;
+    text-align: center;
+    font-style: italic;
+    font-weight: bold;
+    width: 100%;
+}
+.navbar {
+  display: block; 
+  padding: 0;
+}
+.navbar li {
+  display: inline-block; 
+  margin-right: 1em;
+  padding: 0.5em; 
+  border-radius: 0.5em;
+  background: orange; 
+  color: white; 
+}
+.navbar li.disabled {
+  display: inline-block; 
+  margin-right: 1em;
+  padding: 0.5em; 
+  border-radius: 0.5em;
+  background: gray; 
+  color: white;
+}
+.navbar a {
+  text-decoration: none; 
+  font-weight: bold; 
+  color: white;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>City Navigator &mdash; Manchester</h1>
+
+<a href="http://futureeverything.org/ongoing-projects/innovation-challenge/">Winner at <i>Routes to the Future: An Innovation Challenge</i></a>, a hackathon at Future Everything 2013 in Manchester
+
+<ul class="navbar">
+  <li class="disabled"><a href="http://dev.hsl.fi/manchester">Try the demo!</a></li>
+  <li><a href="http://dev.hsl.fi/navigator-proto">Also in Helsinki!</a></li>
+  <li class="disabled"><a href="http://dev.itsfactory.fi/citynav">Now in Tampere!</a></li>
+</ul>
+
+<p>
+(The prototype works best in the Firefox, Chrome, Android and iPhone browsers.)
+</p>
+
+
+<h2>Screenshots</h2>
+
+<div class="picture" style="margin-left: 0;">
+<img src="http://dev.hsl.fi/fe2013/screenshot1-startup.png" />
+<div>1. Select destination by address, by type or on the map.</div>
+</div>
+
+<div class="picture">
+<img src="http://dev.hsl.fi/fe2013/screenshot2-realtime.png" />
+<div>2. Navigate the journey with a map, departure time counters and real-time vehicle locations.</div>
+</div>
+
+<div class="picture">
+<img src="http://dev.hsl.fi/fe2013/screenshot3-libraries.png" />
+<div>3. Navigate to the nearest library or tap to choose another one.</div>
+</div>
+
+<br clear="all">
+
+
+<h2>Description</h2>
+
+<p>City Navigator is a fully Open Source, mobile HTML5 public transport journey planner and navigation application for on-the-go use. It leverages data from multiple sources including OpenStreetMap, TfGM, Manchester City Council, and CitySDK. It works on most mobile platforms including iPhone and Android, and it's designed to be straightforward to deploy in other cities as well. One of our goals is to take the unpredictability away from public transportation and make it more accessible.</p>
+
+
+<h2>Data used</h2>
+
+<ul>
+<li>OpenStreetMap</li>
+<li>TfGM GTFS</li>
+<li>GTFS amendments:<ul><li>Wheelchair accessibility from TfGM</li>
+<li>MetroShuttle route shapes from TfGM</li></ul>
+</li>
+<li>TfGM MetroShuttle real-time locations</li>
+<li>Waag's CitySDK API for OpenStreetMap POIs (supermarkets, pubs, bars)</li>
+<li>DataGM POIs (parks, libraries)</li>
+<li>Manchester Service directory (public toilets, recycling points)</li>
+<li>Google address autocompletion</li>
+</ul>
+
+<h2>Implementation</h2>
+<p>The application was built using 100% open-source components, including:</p>
+<ul>
+  <li>HTML5 and JavaScript frameworks
+  <ul><li>jQuery Mobile</li>
+    <li>Leaflet</li>
+    <li>Node.js</li>
+    <li>Faye</li>
+  </ul></li>
+  <li>Services
+  <ul>
+    <li>Open Trip Planner</li>
+    <li>CitySDK</li>
+  </ul></li>
+</ul>
+
+<p>Programming languages include Python for backend/server code and CoffeeScript (compiled into JavaScript) for backend and frontend code.</p>
+
+<h2>Future</h2>
+
+<p>There's a lot more we would have wanted to achieve during the hackathon, but coding and sleep were competing resources. Thus, we continue the development of the City Navigator in collaboration with all interested parties in Manchester and elsewhere.</p>
+
+<p><b>Real-time arrival predictions: </b>As the TfGM real-time information consists of real-time locations, we want to develop a prediction module that can update the seconds-precision arrival-time counters in our UI to match real as opposed to scheduled times.</p>
+<p><b>Real-time journey planning:</b> If the bus is running late, it would be important to take this real-time information into account in the journey planning to mitigate the inconvenience caused to passengers.</p>
+<p><b>Journey progress tracking:</b> For now, we simply track the device location and don't try to track the progress along the suggested journey, which would enable contextual information such as alerting of an approaching stop or re-routing in case the situation changes.</p>
+<p><b>Turn-by-turn walking guidance: </b>The current UI is heavily map-based, which some people love and some people hate. We would like to provide the convenience of modern car navigation appliances that give turn-by-turn guidance instead of requiring the traveller to situate themselves on the map.</p>
+<p><b>Include more cities: </b>Our team included members from Manchester and Helsinki, so those are the cities we support at the moment. After the event, Tampere has joined the effort. To add your city, you need the timetables in GTFS format at minimum and loaded into an installation of OpenTripPlanner. Then just point the City Navigator configuration to your OpenTripPlanner and off we go!</p>
+
+
+<h2>Links</h2>
+
+<p>A demo version of our City Navigator prototype can be tested at <a href="http://dev.hsl.fi/fe2013">http://dev.hsl.fi/fe2013</a>.</p>
+<p>On iPhone, it can be added to the Home Screen along any other app.
+<p>We develop the application collaboratively in Github, please follow links to the code repositories from <a href="http://dev.hsl.fi/">http://dev.hsl.fi</a></p>
+
+
+<h2>Team</h2>
+
+<p>We are three of this year's <a href="http://codeforeurope.net/">Code for Europe</a> Fellows: Tuukka Hastrup and Juha Yrjölä from Helsinki and Olli Aro from Manchester.</p>
+
+</body>
+</html>
