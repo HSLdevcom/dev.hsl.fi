@@ -1,316 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>HSL Developer Community</title>
-<meta charset='utf-8'>
-<meta name="theme-color" content="#bee4f8"> 
-<meta name="theme-color" content="#f092cd"> 
-<meta name="theme-color" content="#dfedf5"> 
-<meta name="theme-color" content="#ffffff"> 
-<meta name="theme-color" content="#007ac9"> 
-<link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script>
-<script type="text/javascript">
-$(function() {
+  <meta charset='utf-8'>
+  <title>HSL Developer Community</title>
+  <meta name="theme-color" content="#bee4f8">
+  <meta name="theme-color" content="#f092cd">
+  <meta name="theme-color" content="#dfedf5">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#007ac9">
+  <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
     $.getJSON('https://api.github.com/repos/hsldevcom/openjourneyplanner/events?callback=?', function(data) {
 
-        var list = $('#gollum-events');
+      var list = $('#gollum-events');
+      var seen = {};
+      var seen_num = 0;
 
-        var seen = {};
+      $.each(data.data, function(key, val) {
+        if (val.type == "GollumEvent") {
+          $.each(val.payload.pages, function(key2, val2) {
+            if (seen[val2.page_name] || seen_num >= 10) return;
+            seen[val2.page_name] = true;
+            seen_num++;
 
-        var seen_num = 0;
-
-        $.each(data.data, function(key, val) {
-            if (val.type == "GollumEvent") {
-                $.each(val.payload.pages, function(key2, val2) {
-                    if (seen[val2.page_name] || seen_num >= 10) return;
-                    seen[val2.page_name] = true;
-                    seen_num++;
-
-                    $item = $($("#gollum-events li.template").clone());
-                    $item.removeClass("template").show();
-                    $item.find(".avatar").attr("src", val.actor.avatar_url);
-                    $item.find(".username").text(val.actor.login);
-                    $item.find(".userlink").attr("href", "https://github.com/"+val.actor.login);
-                    $item.find(".action").text(val2.action);
-                    $item.find(".pagename").text(val2.page_name);
-                    $item.find(".pagename").attr("href", val2.html_url);
-                    $item.find(".timestamp").text(moment(val.created_at).fromNow());
-
-                    list.append($item);
-                });
-            }
-        });
-    });
-
-    $.post("http://api.avoindata.net/search/questions", {term: "liikenne joukkoliikenne hsl tkl matkakortti kartta"}, function(data) {
-        $list = $('#avoindata_questions');
-        $.each(data.questions, function(key, val) {
-            $item = $($("#avoindata_questions li.template").clone());
+            $item = $($("#gollum-events li.template").clone());
             $item.removeClass("template").show();
-            $item.find(".link").attr("href", val.url);
-            $item.find(".title").text(val.title);
-            $item.find(".timestamp").text(moment(val.created*1000).fromNow());
-            if (val.answercount) {
-                $item.find(".action").text("received "+val.answercount+" answers.");
-            } else {
-                $item.find(".action").text("asks:");
-            }
-            $item.find(".avatar").attr("src", val.useravatar);
-            $item.find(".username").text(val.userhandle);
-            $item.find(".userlink").attr("href", "http://avoindata.net/user/"+val.userhandle);
-            $list.append($item);
-        });      
+            $item.find(".avatar").attr("src", val.actor.avatar_url);
+            $item.find(".username").text(val.actor.login);
+            $item.find(".userlink").attr("href", "https://github.com/" + val.actor.login);
+            $item.find(".action").text(val2.action);
+            $item.find(".pagename").text(val2.page_name);
+            $item.find(".pagename").attr("href", val2.html_url);
+            $item.find(".timestamp").text(moment(val.created_at).fromNow());
+
+            list.append($item);
+          });
+        }
+      });
     });
-});
-</script>
-<style>
-body {
-    margin: 0 8px;
-    font-family: Verdana, "Helvetica Neue", Arial, sans-serif;
-    font-size: 16px;
-    color: black;
-    background: #DFEDF5;
-}
 
-h2, h3, h4, h5, h6 {
-/* confusing:    color: #007ac9; */
-    font-weight: normal;
-}
-
-h1 {
-    padding: 1em;
-    margin: 0 -8px 1em;
-    font-size: 32px;
-    background: #007ac9;
-    color: white;
-}
-
-h1 img {
-    vertical-align: middle;
-    margin-right: 45px;
-}
-
-img {
-    border: 0;
-}
-
-p {
-/*    max-width: 40em; */
-}
-
-/* link styles from beta.hsl.fi: */
-a:link {
-    color: #007AC9;
-    text-decoration: none;
-}
-a:visited {
-    color: #007AC9;
-    text-decoration: none;
-}
-a:hover, a:focus {
-    color: #0089E3;
-    text-decoration: underline;
-}
-a:active {
-    color: #003C63;
-}
-a.active {
-    color: #003C63;
-    cursor: default;
-    text-decoration: none;
-}
-a:focus {
-    outline: thin dotted;
-}
-a:hover, a:active {
-    outline: 0 none;
-}
-
-/*
-a {
-    color: #005abb;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-*/
-
-table {
-    border-collapse: collapse;
-}
-
-.right-sidebar {
-    float: right;
-    width: 300px;
-    margin-left: 8px;
-    border-radius: 14px;
-    behavior: url(PIE.htc); /* IE lt 10 */
-    padding: 14px;
-/*    background: #007ac9; */
-/*    background: #00B9E4; */
-/*    background: #F092CD; */
-    background: #BEE4F8;
-}
-
-.right-sidebar > div {
-   margin-bottom: 8px;
-}
-
-.wiki_events, .sidebox {
-    border: solid thin #e8e8e8;
-    border-radius: 5px;
-    behavior: url(PIE.htc); /* IE lt 10 */
-    color: #333333;
-    font-family: "Helvetica Neue", Arial, sans-serif;
-    background: white;
-}
-
-.wiki_events h3, .sidebox h3 {
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 16px;
-    padding: 8px;
-    margin: 0;
-    border-bottom: solid thin #e8e8e8;
-}
-
-.wiki_events a, .sidebox a {
-    color: #333333;
-    text-decoration: none;
-//    font-weight: bold;
-}
-
-.wiki_events a:hover, .sidebox a:hover {
-    text-decoration: underline;
-}
-
-.wiki_events ul {
-    display: block;
-    color: #999999;
-    margin: 0;
-    padding: 0;
-
-    max-height: 350px;
-    overflow: auto;
-}
-
-.wiki_events li {
-    display: block;
-    border-bottom: solid thin #e8e8e8;
-
-    padding: 8px;
-
-    font-size: 12px;
-    line-height: 16px;
-}
-
-.wiki_events .avatar {
-    height: 32px;
-    float: left;
-    margin-right: 4px;
-    border-radius: 4px;
-    behavior: url(PIE.htc); /* IE lt 10 */
-}
-
-.wiki_events .timestamp {
-    display: inline-block;
-    position: relative;
-    float: right;
-}
-
-.wiki_events .pagename, .avoindata_questions .title {
-    font-style: italic;
-}
-
-.wiki_events .username {
-    font-weight: bold;
-}
-
-
-.picture {
-    float: left;
-    width: 150px;
-    margin-right: 2em;
-}
-.picture img {
-    height: 100%;
-    width: 100%;
-    border: none;
-/* border: solid thin black;*/
-}
-.picture div {
-    margin: 0.5em 0;
-    text-align: center;
-    font-style: italic;
-    font-weight: bold;
-    width: 100%;
-}
-.picture div em {
-    font-style: normal;
-}
-
-.buttongroup {
-  display: block; 
-  padding: 0;
-}
-.buttongroup li {
-  display: inline-block; 
-  margin-right: 1em;
-  margin-bottom: 1em;
-  padding: 0.5em; 
-  border-radius: 0.5em;
-  behavior: url(PIE.htc); /* IE < 10 */
-  background: orange; 
-  color: white; 
-/* IE7: */
-    *zoom: 1;
-    *display: inline;
-/* IE6: */
-    _height: 2em;
-}
-.buttongroup li.disabled {
-  display: inline-block; 
-  margin-right: 1em;
-  margin-bottom: 1em;
-  padding: 0.5em; 
-  border-radius: 0.5em;
-  behavior: url(PIE.htc); /* IE < 10 */
-  background: gray; 
-  color: white; 
-  cursor: default;
-/* IE7: */
-    *zoom: 1;
-    *display: inline;
-/* IE6: */
-    _height: 2em;
-}
-.buttongroup a {
-  text-decoration: none; 
-  font-weight: bold; 
-  color: white;
-}
-
-.navbar {
-    margin: -2em -8px 1em;    
-    padding: 0.5em 0;
-    background: #BEE4F8;
-}
-
-.navbar li {
-    display: inline-block;
-    width: auto;
-    margin-right: 1em;
-/* IE7: */
-    *zoom: 1;
-    *display: inline;
-/* IE6: */
-    _height: 2em;
-}
-</style>
+    $.post("http://api.avoindata.net/search/questions", {
+      term: "liikenne joukkoliikenne hsl tkl matkakortti kartta"
+    }, function(data) {
+      $list = $('#avoindata_questions');
+      $.each(data.questions, function(key, val) {
+        $item = $($("#avoindata_questions li.template").clone());
+        $item.removeClass("template").show();
+        $item.find(".link").attr("href", val.url);
+        $item.find(".title").text(val.title);
+        $item.find(".timestamp").text(moment(val.created * 1000).fromNow());
+        if (val.answercount) {
+          $item.find(".action").text("received " + val.answercount + " answers.");
+        } else {
+          $item.find(".action").text("asks:");
+        }
+        $item.find(".avatar").attr("src", val.useravatar);
+        $item.find(".username").text(val.userhandle);
+        $item.find(".userlink").attr("href", "http://avoindata.net/user/" + val.userhandle);
+        $list.append($item);
+      });
+    });
+  });
+  </script>
+  <link rel="stylesheet" href="css/master.css" media="screen" title="default styles">
 </head>
 <body>
 
@@ -318,71 +73,76 @@ table {
 <h1><a href="https://www.hsl.fi/en"><img title="Home" alt="HSL" src="logo.png"></a>HSL Developer Community</h1>
 
 <div class="navbar">
-<ul>
-<li><a href="#contact">Contact</a></li>
-<li><a href="#upcoming">Upcoming</a></li>
-<li><a href="#services">Services</a></li>
-<li><a href="#journeyplanning">Journey planning</a></li>
-<!-- <li><a href="#navigator">Navigator</a></li> -->
-<li><a href="#maps">Maps</a></li>
-<li><a href="#travel-card">Travel card</a></li>
-<li><a href="#projects">Projects</a></li>
-<li><a href="#resources">Documentation</a></li>
-<li><a href="#related">Related</a></li>
-<li><a href="#past">Past</a></li>
-</ul>
+  <ul>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#upcoming">Upcoming</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#journeyplanning">Journey planning</a></li>
+    <!-- <li><a href="#navigator">Navigator</a></li> -->
+    <li><a href="#maps">Maps</a></li>
+    <li><a href="#travel-card">Travel card</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#resources">Documentation</a></li>
+    <li><a href="#related">Related</a></li>
+    <li><a href="#past">Past</a></li>
+  </ul>
 </div>
+
+
 
 <div class="right-sidebar">
 
-<div class="sidebox">
-<h3><a href="https://facebook.com/HSLdevcom">Facebook</a></h3>
-<iframe src="https://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fhsldevcom&amp;width=300&amp;height=350&amp;show_faces=false&amp;colorscheme=light&amp;stream=true&amp;border_color=white&amp;header=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:300px; height:350px; margin: -1px;" allowTransparency="true"></iframe>
+  <div class="sidebox">
+    <h3><a href="https://facebook.com/HSLdevcom">Facebook</a></h3>
+    <iframe src="https://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fhsldevcom&amp;width=300&amp;height=350&amp;show_faces=false&amp;colorscheme=light&amp;stream=true&amp;border_color=white&amp;header=false" scrolling="no" frameborder="0"
+      style="border:none; overflow:hidden; width:300px; height:350px; margin: -1px;" allowTransparency="true"></iframe>
+  </div>
+
+  <div>
+    <div>
+      <a class="twitter-timeline" href="https://twitter.com/HSLdevcom" height="350" data-chrome="nofooter" data-widget-id="323828770396045314">Tweets by @HSLdevcom</a>
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </div>
+  </div>
+
+  <div class="wiki_events avoindata_questions">
+    <h3><a href="http://avoindata.net">Recent Avoindata.net questions</a></h3>
+    <ul id="avoindata_questions">
+      <li class="template" style="display: none">
+        <span class="timestamp"></span>
+        <a class="userlink"><img class="avatar" /> <span class="username"></span></a> <span class="action"></span> <br />
+        <a class="link title"></a><br clear="both" />
+      </li>
+    </ul>
+  </div>
+
+  <div class="wiki_events">
+    <h3><a href="https://github.com/HSLdevcom/hsl-navigator/wiki/_pages">Recent Wiki pages</a></h3>
+    <ul id="gollum-events">
+      <li class="template" style="display: none">
+        <span class="timestamp"></span>
+        <a class="userlink"><img class="avatar" /> <span class="username"></span></a> <span class="action"></span> page <br />
+        <a class="pagename"></a><br clear="both" />
+      </li>
+    </ul>
+  </div>
+
 </div>
 
-<div>
-<div>
-<a class="twitter-timeline" href="https://twitter.com/HSLdevcom" height="350" data-chrome="nofooter" data-widget-id="323828770396045314">Tweets by @HSLdevcom</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-</div>
-</div>
-
-<div class="wiki_events avoindata_questions">
-<h3><a href="http://avoindata.net">Recent Avoindata.net questions</a></h3>
-<ul id="avoindata_questions">
-<li class="template" style="display: none">
-<span class="timestamp"></span>
-<a class="userlink"><img class="avatar" /> <span class="username"></span></a> <span class="action"></span> <br /><a class="link title"></a><br clear="both" />
-</li>
-</ul>
-</div>
-
-<div class="wiki_events">
-<h3><a href="https://github.com/HSLdevcom/hsl-navigator/wiki/_pages">Recent Wiki pages</a></h3>
-<ul id="gollum-events">
-<li class="template" style="display: none">
-<span class="timestamp"></span>
-<a class="userlink"><img class="avatar" /> <span class="username"></span></a> <span class="action"></span> page <br /><a class="pagename"></a><br clear="both" />
-</li>
-</ul>
-</div>
-
-</div>
 
 <a name="trunk-routes-2020"></a>
 <div class="picture" style="float: left; width: auto; height: 300px">
-<a href="doc/runkolinjasto_2020.pdf"><img src="images/runkolinjasto_2020.png"></a>
+  <a href="doc/runkolinjasto_2020.pdf"><img src="images/runkolinjasto_2020.png"></a>
 </div>
 
 <div class="picture" style="float: left; width: auto; height: 300px">
-<a href="#journeyplanning"><img src="images/digitransit-2015-05-12.png" /></a>
+  <a href="#journeyplanning"><img src="images/digitransit-2015-05-12.png" /></a>
 </div>
+
 
 <br clear="left" style="font-size: 0" />
 
-<p>HSL Developer Community is open for all individuals and organisations
-interested in the Open Data and Open Source software regarding <a href="https://www.hsl.fi/en">Helsinki
-Region Transport HSL</a> or wider. HSL is the public authority that plans and procures the public transport (ferry, tram, metro, train, bus) within its member municipalities (Helsinki, Vantaa, Espoo, Kauniainen, Kirkkonummi, Kerava, and Sipoo).</p>
+<p>HSL Developer Community is open for all individuals and organisations interested in the Open Data and Open Source software regarding <a href="https://www.hsl.fi/en">Helsinki Region Transport HSL</a> or wider. HSL is the public authority that plans and procures the public transport (ferry, tram, metro, train, bus) within its member municipalities (Helsinki, Vantaa, Espoo, Kauniainen, Kirkkonummi, Kerava, and Sipoo).</p>
 
 
 <h2 id="contact">Contact</h2>
@@ -390,7 +150,7 @@ Region Transport HSL</a> or wider. HSL is the public authority that plans and pr
 <ul>
   <li><a href="https://www.facebook.com/HSLdevcom"><strong>facebook</strong>.com/HSLdevcom</a></li>
   <li><a href="https://twitter.com/HSLdevcom"><strong>twitter</strong>.com/HSLdevcom</a></li>
-<!--  <li><a href="https://twitter.com/HSLdevcom" class="twitter-follow-button" data-show-count="true">twitter.com/HSLdevcom</a></li>-->
+  <!-- <li><a href="https://twitter.com/HSLdevcom" class="twitter-follow-button" data-show-count="true">twitter.com/HSLdevcom</a></li> -->
   <li><a href="https://github.com/HSLdevcom"><strong>github</strong>.com/HSLdevcom</a></li>
   <li><a href="http://avoindata.net/">Avoin data</a> (Finnish-language Q&A support site) - Avoimen datan tukisivusto</li>
   <li>Chat channel <a href="http://webchat.freenode.net/?channels=hsldevcom"><code>#hsldevcom</code></a> on <strong>IRC</strong>Net and Freenode networks.</li>
@@ -407,6 +167,7 @@ Region Transport HSL</a> or wider. HSL is the public authority that plans and pr
 </ul>
 
 
+
 <h2 id="services">Services</h2>
 
 <ul>
@@ -417,51 +178,60 @@ Region Transport HSL</a> or wider. HSL is the public authority that plans and pr
 <h2 id="journeyplanning">Journey planning</h2>
 <br clear="left" style="font-size: 0" />
 <div class="picture">
-<a href="http://matka.hsl.fi/"><img src="images/digitransit-2015-05-12.png" /></a>
+  <a href="http://matka.hsl.fi/"><img src="images/digitransit-2015-05-12.png" /></a>
 </div>
 
-Digitransit: <a href="http://digitransit.fi/en/">(project page)</a>
+
+
+<h3>Digitransit <a href="http://digitransit.fi/en/">(project page)</a></h3>
+
 <p>
-HSL's next-generation journey planner, in cooperation with 
-<a href="http://fta.fi/">Finnish Transport Agency</a>'s national 
-<a href="http://journey.fi/">Journey.fi</a>.
+  HSL's next-generation journey planner, in cooperation with
+  <a href="http://fta.fi/">Finnish Transport Agency</a>'s national
+  <a href="http://journey.fi/">Journey.fi</a>.
 </p>
 <ul>
-<li><a href="http://beta.reittiopas.fi/">Digitransit application</a> - built on HTML5, React, Relay, GraphQL, MQTT</li>
-<li>Tested to work on Firefox 29-, Chrome 45-, IE 9-, iOS 6- Safari (using <a href="http://browserstack.com/">Browserstack</a>)</li>
-<li><a href="http://invis.io/MY2F0CQ2W">Digitransit clickable design wireframe</a></li>
-<li><a href="http://dev.hsl.fi/graphql/console">GraphQL console</a> including schema documentation</li>
+  <li><a href="http://beta.reittiopas.fi/">Digitransit application</a> - built on HTML5, React, Relay, GraphQL, MQTT</li>
+  <li>Tested to work on Firefox 29-, Chrome 45-, IE 9-, iOS 6- Safari (using <a href="http://browserstack.com/">Browserstack</a>)</li>
+  <li><a href="http://invis.io/MY2F0CQ2W">Digitransit clickable design wireframe</a></li>
+  <li><a href="http://dev.hsl.fi/graphql/console">GraphQL console</a> including schema documentation</li>
 </ul>
 <ul>
-<li><a href="http://dev.hsl.fi/now">HSL Now</a> - a prototype front page</li>
-<li><a href="http://dev.hsl.fi/doc/HSL-JP-FunctionalSpecification.pdf">Functional Specification of the old HSL Journey Planner</a></li>
+  <li><a href="http://dev.hsl.fi/now">HSL Now</a> - a prototype front page</li>
+  <li><a href="http://dev.hsl.fi/doc/HSL-JP-FunctionalSpecification.pdf">Functional Specification of the old HSL Journey Planner</a></li>
 </ul>
 
 <br clear="left" style="font-size: 0" />
 <div class="picture">
-<a href="http://dev.hsl.fi/navigator-proto/#live-page"><img src="images/siri-vm-2015-02-19.2-scaled.png" /></a>
+  <a href="http://dev.hsl.fi/navigator-proto/#live-page"><img src="images/siri-vm-2015-02-19.2-scaled.png" /></a>
 </div>
-Live maps:
+
+
+
+<h3>Live maps</h3>
+
 <ul>
-<li><a href="http://dev.hsl.fi/live">Live demo</a></li>
-<li><a href="http://dev.hsl.fi/navigator-proto/#live-page">HSL Navigator live page</a></li>
-<li><a href="http://tinyurl.com/routa2014">routa</a></li>
-<li>Schematic: <a href="http://liikenne.hylly.org/rata/lahi">Commuter trains</a></li>
-<li>Data: <a href="http://dev.hsl.fi/siriaccess/vm/json?operatorRef=HSL">SIRI VM JSON</a>, <a href="http://dev.hsl.fi/tmp/mqtt/map">MQTT console</a>, <a href="http://dev.hsl.fi/hfp/">REST cache of MQTT</a></li>
-<li>Code for push API: 
-<a href="https://github.com/HSLdevcom/navigator-proto/blob/master/src/routing.coffee#L169">#live-page</a>
-<a href="https://github.com/HSLdevcom/navigator-proto/blob/master/src/realtime.coffee">realtime.coffee</a>
-<a href="http://dev.hsl.fi:9002/faye/faye-browser.js">faye-browser.js</a>
-</li>
+  <li><a href="http://dev.hsl.fi/live">Live demo</a></li>
+  <li><a href="http://dev.hsl.fi/navigator-proto/#live-page">HSL Navigator live page</a></li>
+  <li><a href="http://tinyurl.com/routa2014">routa</a></li>
+  <li>Schematic: <a href="http://liikenne.hylly.org/rata/lahi">Commuter trains</a></li>
+  <li>Data: <a href="http://dev.hsl.fi/siriaccess/vm/json?operatorRef=HSL">SIRI VM JSON</a>, <a href="http://dev.hsl.fi/tmp/mqtt/map">MQTT console</a>, <a href="http://dev.hsl.fi/hfp/">REST cache of MQTT</a></li>
+  <li>Code for push API:
+    <a href="https://github.com/HSLdevcom/navigator-proto/blob/master/src/routing.coffee#L169">#live-page</a>
+    <a href="https://github.com/HSLdevcom/navigator-proto/blob/master/src/realtime.coffee">realtime.coffee</a>
+    <a href="http://dev.hsl.fi:9002/faye/faye-browser.js">faye-browser.js</a>
+  </li>
 </ul>
+
 <!-- <h2 id="navigator">Work in progress: HSL Navigator</h2> -->
 <a name="navigator">
-<br clear="left" style="font-size: 0" />
-<div class="picture">
-<a href="fe2013"><img src="fe2013/screenshot3-libraries.png" /></a>
-</div>
-HSL Navigator:
+  <br clear="left" style="font-size: 0" />
+  <div class="picture">
+    <a href="fe2013"><img src="fe2013/screenshot3-libraries.png" /></a>
+  </div>
 
+
+<h3>HSL Navigator</h3>
 <p>HSL Navigator is a fully open-source service based solely on open data.</p>
 
 <ul class="buttongroup">
@@ -475,14 +245,12 @@ HSL Navigator:
   <li class="disabled"><a href="http://dev.hsl.fi/finland-old">Jyväskylä</a></li>
 </ul>
 
-<p>
-(The prototype works best in the Firefox, Chrome, Android and iPhone browsers. 
-Windows Phone 7.8 is unreasonable to support.)
-</p>
+<p>(The prototype works best in the Firefox, Chrome, Android and iPhone browsers. Windows Phone 7.8 is unreasonable to support.)</p>
 
 <p style="margin-bottom: 0">
-You can leave feedback on HSL's <a href="http://hsl.ideascale.com/a/ideas/recent/campaign-filter/byids/campaigns/51154">Feedback Forum</a> (in Finnish).
+  You can leave feedback on HSL's <a href="http://hsl.ideascale.com/a/ideas/recent/campaign-filter/byids/campaigns/51154">Feedback Forum</a> (in Finnish).
 </p>
+
 
 <br clear="left" style="font-size: 0" />
 
@@ -495,58 +263,65 @@ You can leave feedback on HSL's <a href="http://hsl.ideascale.com/a/ideas/recent
 <h2 id="cycling">Cycling</h2>
 
 <ul>
-<li>You can search for multi-modal routes including bicycles or citybikes in the <a href="https://digitransit.fi/en/developers/services-and-apis/1-routing-api/">Digitransit routing API</a>.</li>
-<li>Citybike stations and availability (<a href="http://api.digitransit.fi/routing/v1/routers/hsl/bike_rental">REST API</a>, <a href="http://dev.hsl.fi/graphql/console/?query={%0A%20%20bikeRentalStations%20{%0A%20%20%20%20stationId%0A%20%20%20%20name%0A%20%20%20%20lat%0A%20%20%20%20lon%0A%20%20%20%20bikesAvailable%0A%20%20%20%20spacesAvailable%0A%20%20}%0A}">GraphQL console</a>)</li>
-<li>International <a href="http://citybik.es/">CityBikes</a> service and <a href="http://api.citybik.es/v2/networks/citybikes-helsinki"> REST API</a></li>
-<li><a href="https://p.hsl.fi/">Park and Ride</a></li>
-<li>Experimental: <a href="https://github.com/Yleisradio/mydata-hackathon-2016">Citybike MyData API</a> for bike users to share their rental history with apps.</li>
-<li>Experimental: history data from <a href="/tmp/citybikes/">stations</a> and <a href="/tmp/citybike-stats/">statistics</a>. <em>The statistics are currently <a href="https://github.com/HSLdevcom/hsl-open-data/issues/1">broken</a> as some periods of time have gone missing from them (seen as sudden drops and jumps in the cumulative numbers).</em></li>
+  <li>You can search for multi-modal routes including bicycles or citybikes in the <a href="https://digitransit.fi/en/developers/services-and-apis/1-routing-api/">Digitransit routing API</a>.</li>
+  <li>Citybike stations and availability (<a href="http://api.digitransit.fi/routing/v1/routers/hsl/bike_rental">REST API</a>, <a href="http://dev.hsl.fi/graphql/console/?query={%0A%20%20bikeRentalStations%20{%0A%20%20%20%20stationId%0A%20%20%20%20name%0A%20%20%20%20lat%0A%20%20%20%20lon%0A%20%20%20%20bikesAvailable%0A%20%20%20%20spacesAvailable%0A%20%20}%0A}">GraphQL console</a>)</li>
+  <li>International <a href="http://citybik.es/">CityBikes</a> service and <a href="http://api.citybik.es/v2/networks/citybikes-helsinki"> REST API</a></li>
+  <li><a href="https://p.hsl.fi/">Park and Ride</a></li>
+  <li>Experimental: <a href="https://github.com/Yleisradio/mydata-hackathon-2016">Citybike MyData API</a> for bike users to share their rental history with apps.</li>
+  <li>Experimental: history data from <a href="/tmp/citybikes/">stations</a> and <a href="/tmp/citybike-stats/">statistics</a>. <em>The statistics are currently <a href="https://github.com/HSLdevcom/hsl-open-data/issues/1">broken</a> as some periods of time have gone missing from them (seen as sudden drops and jumps in the cumulative numbers).</em></li>
 </ul>
+
+
 
 <h2 id="maps">Maps</h2>
 
 <ul>
-<li><a href="https://beta.reittiopas.fi/">New official map style</a> in Journey Planner Beta (based on Digitransit APIs)</li>
-<ul>
-<li><a href="https://beta.reittiopas.fi/linjat/HSL:2550:0:01">For example, live map of line number 550 towards Westend</a></li>
+  <li><a href="https://beta.reittiopas.fi/">New official map style</a> in Journey Planner Beta (based on Digitransit APIs)</li>
+  <ul>
+    <li><a href="https://beta.reittiopas.fi/linjat/HSL:2550:0:01">For example, live map of line number 550 towards Westend</a></li>
+  </ul>
+  <li><a href="https://www.flickr.com/photos/29682104@N04/with/9711135914/">Unofficial (less) schematic map</a> by Elmo Allén</a>
+  </li>
+  <li><a href="https://dl.dropboxusercontent.com/u/16085671/HSL%20runkolinjat%202017%20versio%204.1%20Elmo%20Allen.png">Unofficial (more) schematic map</a> by Elmo Allén</li>
+  </li>
+  <li><a href="http://bikes.oobrien.com/helsinki/">Bike Share Map Helsinki Live</a></li>
+  <li><a href="https://www.youtube.com/watch?v=qGllzWt0acU">Video based on simulation of HSL traffic</a></li>
+  <li><a href="https://dev.hsl.fi/live/">Live map of HSL vehicles</li>
+  <!-- <li><a href="http://liikenne.hylly.org/rata/lahi/">Live schematic map of commuter trains</a></li> -->
+  <li><a href="http://14142.net/kartalla/">Simulation of all HSL traffic on a map</a></li>
 </ul>
-<li><a href="https://www.flickr.com/photos/29682104@N04/with/9711135914/">Unofficial (less) schematic map</a> by Elmo Allén</a></li>
-<li><a href="https://dl.dropboxusercontent.com/u/16085671/HSL%20runkolinjat%202017%20versio%204.1%20Elmo%20Allen.png">Unofficial (more) schematic map</a> by Elmo Allén</li>
-</li>
-<li><a href="http://bikes.oobrien.com/helsinki/">Bike Share Map Helsinki Live</a></li>
-<li><a href="https://www.youtube.com/watch?v=qGllzWt0acU">Video based on simulation of HSL traffic</a></li>
-<li><a href="https://dev.hsl.fi/live/">Live map of HSL vehicles</li>
-<!-- <li><a href="http://liikenne.hylly.org/rata/lahi/">Live schematic map of commuter trains</a></li> -->
-<li><a href="http://14142.net/kartalla/">Simulation of all HSL traffic on a map</a></li>
-</ul>
+
 
 <h2 id="travel-card">HSL travel card</h2>
 <div class="picture" style="float: none">
-<a href="https://www.hsl.fi/en/information/travel-card"><img src="images/matkakortti.png"></a>
+  <a href="https://www.hsl.fi/en/information/travel-card"><img src="images/matkakortti.png"></a>
 </div>
 
 <ul>
-<li><a href="//dev.hsl.fi/hsl-card-java/HSL-matkakortin-kuvaus.pdf">HSL travel card specification</a> (mostly in Finnish)
-  <ul>
-    <li><a href="https://github.com/hsldevcom/hsl-card-java">Java library SDK</a> in Github (<a href="//dev.hsl.fi/hsl-card-java/hsl-card-library-javadoc">Javadoc</a>; initial release: <a href="//dev.hsl.fi/hsl-card-java/hsl-card-library.zip">source code archive</a>, <a href="//dev.hsl.fi/hsl-card-java/hsl-card-library-javadoc.zip">Javadoc archive</a>)</li>
-  </ul>
-</li>
-<li>Android app: <a href="https://play.google.com/store/apps/details?id=com.andler.matkakortti&hl=en">Matkakortti reader</a> (<a href="https://github.com/landler/farebot">source code in Github</a>)</li>
-<li>Android app: <a href="https://play.google.com/store/apps/details?id=com.salomaa.travelcardreader.free&hl=en">Travel card reader free</a> (<a href="https://github.com/miikkajs/farebot.git">source code in Github</a>)</li>
-<li>Android app: <a href="https://codebutler.github.io/farebot/">Farebot</a> (<a href="https://github.com/codebutler/farebot">source code in Github</a>)</li>
-<li>Windows Phone app: <a href="http://www.windowsphone.com/en-us/store/app/hsl-matkakorttilukija/ef4286dd-49a5-45d6-9247-f804255e5004">HSL Matkakorttilukija</a></li>
+  <li><a href="//dev.hsl.fi/hsl-card-java/HSL-matkakortin-kuvaus.pdf">HSL travel card specification</a> (mostly in Finnish)
+    <ul>
+      <li><a href="https://github.com/hsldevcom/hsl-card-java">Java library SDK</a> in GitHub (<a href="//dev.hsl.fi/hsl-card-java/hsl-card-library-javadoc">Javadoc</a>; initial release: <a href="//dev.hsl.fi/hsl-card-java/hsl-card-library.zip">source code archive</a>,
+        <a href="//dev.hsl.fi/hsl-card-java/hsl-card-library-javadoc.zip">Javadoc archive</a>)</li>
+    </ul>
+  </li>
+  <li>Android app: <a href="https://play.google.com/store/apps/details?id=com.andler.matkakortti&hl=en">Matkakortti reader</a> (<a href="https://github.com/landler/farebot">source code in GitHub</a>)</li>
+  <li>Android app: <a href="https://play.google.com/store/apps/details?id=com.salomaa.travelcardreader.free&hl=en">Travel card reader free</a> (<a href="https://github.com/miikkajs/farebot.git">source code in GitHub</a>)</li>
+  <li>Android app: <a href="https://codebutler.github.io/farebot/">Farebot</a> (<a href="https://github.com/codebutler/farebot">source code in GitHub</a>)</li>
+  <li>Windows Phone app: <a href="http://www.windowsphone.com/en-us/store/app/hsl-matkakorttilukija/ef4286dd-49a5-45d6-9247-f804255e5004">HSL Matkakorttilukija</a></li>
 </ul>
+
+
 
 <h2 id="projects">Collaborative development projects</h2>
 
 <ul>
   <li><a href="https://github.com/HSLdevcom/hsl-navigator">HSL Navigator</a> (wiki, issue tracker)</li>
   <li><a href="https://github.com/HSLdevcom/navigator-proto">Navigator Proto</a> (source code)
-<!-- FIXME: Broken ATM
+    <!-- FIXME: Broken ATM
       <a href="http://travis-ci.org/HSLdevcom/navigator-proto">
       <img src="https://secure.travis-ci.org/HSLdevcom/navigator-proto.png" style="vertical-align: text-bottom" />
       </a>
--->
+    -->
   </li>
   <li><a href="https://github.com/HSLdevcom/navigator-server">Navigator Proto real-time server component</a> (source code)</li>
   <li><a href="https://github.com/HSLdevcom/hsl-visualisation">HSL Visualisation</a> (examples and code)</li>
@@ -556,53 +331,58 @@ You can leave feedback on HSL's <a href="http://hsl.ideascale.com/a/ideas/recent
 </ul>
 
 
+
 <h2 id="resources">Resources</h2>
 
 <table border=1>
-<caption>Summary</caption>
-<tr>
-<td>
-<th>Open data
-<th>Open API
-</tr>
-<tr>
-<td>Routes and timetables</td>
-<td>JORE, GTFS, Kalkati</td>   
-<td>Old Reittiopas, New Digitransit<br>(OpenTripPlanner REST & GraphQL)</td>
-</tr>
-<tr>
-<td>Service changes</td>
-<td>
-<td>Poikkeusinfo, HSL News</td>
-<tr>
-<td>Realtime stop predictions</td>
-<td>
-<td>Omat lähdöt</>
-</tr>
-<tr>
-<td>Tickets, orders
-<td>
-<td>Kutsuplus SMS
-</tr>
-<tr>
-<td>Realtime positions</td>
-<td>
-<td>MQTT, HSL Live,<br>navigator-server (SIRI & REST)</td>
-</tr>
-<tr>
-<td>Observed stop times</td>
-<td>LINFO</td>
-<td></td>
-</tr>
-<tr>
-<td>Vehicles</td><td>Wifi MAC addresses</td>
-<td></td>
-</tr>
-<tr>
-<td>Coordinates</td><td>Kutsuplus stops, POI database</td>
-<td>Pelias geocoder</td>
-</tr>
+  <caption>Summary</caption>
+  <tr>
+    <td>
+      <th>Open data
+        <th>Open API
+  </tr>
+  <tr>
+    <td>Routes and timetables</td>
+    <td>JORE, GTFS, Kalkati</td>
+    <td>Old Reittiopas, New Digitransit<br>(OpenTripPlanner REST & GraphQL)</td>
+  </tr>
+  <tr>
+    <td>Service changes</td>
+    <td>
+      <td>Poikkeusinfo, HSL News</td>
+      <tr>
+        <td>Realtime stop predictions</td>
+        <td>
+          <td>Omat lähdöt
+            </>
+      </tr>
+      <tr>
+        <td>Tickets, orders
+          <td>
+            <td>Kutsuplus SMS
+      </tr>
+      <tr>
+        <td>Realtime positions</td>
+        <td>
+          <td>MQTT, HSL Live,<br>navigator-server (SIRI & REST)</td>
+      </tr>
+      <tr>
+        <td>Observed stop times</td>
+        <td>LINFO</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Vehicles</td>
+        <td>Wifi MAC addresses</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>Coordinates</td>
+        <td>Kutsuplus stops, POI database</td>
+        <td>Pelias geocoder</td>
+      </tr>
 </table>
+
 
 
 <ul>
@@ -623,8 +403,9 @@ You can leave feedback on HSL's <a href="http://hsl.ideascale.com/a/ideas/recent
   <ul>
     <li><a href="http://dev.hsl.fi/siriaccess/vm/json?operatorRef=HSL">Realtime vehicle locations</a> in SIRI VM JSON format, from navigator-server</li>
     <ul>
-       <li>(Values of <code>lineRef</code> are "JORE codes" and can be converted to passenger-friendly line numbers using the <a href="https://github.com/HSLdevcom/navigator-proto/blob/master/src/routing.coffee#L40"><code>interpret_jore</code></a> example code.)</li>
-       <li>(<code>lineRef</code> query parameter can be added to limit the response to that single "JORE code".)</a>
+      <li>(Values of <code>lineRef</code> are "JORE codes" and can be converted to passenger-friendly line numbers using the <a href="https://github.com/HSLdevcom/navigator-proto/blob/master/src/routing.coffee#L40"><code>interpret_jore</code></a> example
+        code.)</li>
+      <li>(<code>lineRef</code> query parameter can be added to limit the response to that single "JORE code".)</a>
     </ul>
     <li><a href="tmp/Raitiovaunujen_tietoliikennelaitteet_2014-01-20.csv">Vehicle Wifi MAC addresses</a></li>
     <li><a href="tmp/kutsuplus_mac_addresses_2014-02-05.csv">Kutsuplus Wifi MAC addresses</a></li>
@@ -656,11 +437,12 @@ You can leave feedback on HSL's <a href="http://hsl.ideascale.com/a/ideas/recent
     <li><a href="https://speakerdeck.com/tuukka">Presentations at Tuukka's Speakerdeck profile</a> (in English as well as in Finnish)</li>
     <li>2013-06-15: <a href="tmp/Navigator-2013-06-15.pdf">HSL Navigator presentation</a></li>
     <ul>
-        <li><a href="http://www.plantuml.com/plantuml/svg/VLLDZzem4BtdLunoWWD8gzuuL5gnAekMhsveUq0vU9CXSHVirEEWech_U-qaW8EJlI3yvddcpPUZkJuWFAeavneJNIe4kGUT8mXsuXdJKa6Xf9RwN60G52nvPnb2kC0CHHh2FmVRr7yi2B2RocCX1GeTmsZq5NPFJBCtHXZ3f2GaICqPzaeU3NamXBdGgFOimU0Z2DA62-7bbdNwOKsxcPIPaRna1S4CPI9JLB6ZObsWW4YMAa4WL2UU83MIjlnGOwWeji0rnr6DLk3DgJbORrl5Yys12T5WlnZBOChrENfwgO0mfyD8oL9paOr_KrY1AtdaWcb-Z2lPhTXrHQplI2j4RP8nARGTmtXiEBFjjoWEF1crWyReXNUjWIEaC-pE_7ulaVIjcZtoxkpFU20ktZb4TPNXMBdhOpscgK8YK9Xnqkhi9zofhZlpmJfQ0lvDiD1S2XhsLw63wK7T-LudQdNTX1_pPf8iexxbpTJDPCEif4O7htfg0trvUBXdtoSwiIUWd1L8blfgSaFuKwBYI3sNEdXLoCu9NSY4sGeO-Smy09UnSSVVerJU_8dfvpfhqCln5gf7MUVc6_fcFMypFOSUextaRxQ1LKIgj_NMkgREBWCcHWAWKb9HSErcqzisSShDPW0dCkLodxNMhDLlcskzH6yiZkb-ThsxNLlPJxfVIbzAdPs7syVbeiuPOkz1XSbFp7bYsbP8ufLcSy6dsTlcAn0-HmjOy1E6dv6MJ2IvcJzK_LpR3SiTHFFN-V1JYir5wV0_">Navigator architecture diagram</a> (<a href="http://www.plantuml.com/plantuml/img/VLLDZzem4BtdLunoWWD8gzuuL5gnAekMhsveUq0vU9CXSHVirEEWech_U-qaW8EJlI3yvddcpPUZkJuWFAeavneJNIe4kGUT8mXsuXdJKa6Xf9RwN60G52nvPnb2kC0CHHh2FmVRr7yi2B2RocCX1GeTmsZq5NPFJBCtHXZ3f2GaICqPzaeU3NamXBdGgFOimU0Z2DA62-7bbdNwOKsxcPIPaRna1S4CPI9JLB6ZObsWW4YMAa4WL2UU83MIjlnGOwWeji0rnr6DLk3DgJbORrl5Yys12T5WlnZBOChrENfwgO0mfyD8oL9paOr_KrY1AtdaWcb-Z2lPhTXrHQplI2j4RP8nARGTmtXiEBFjjoWEF1crWyReXNUjWIEaC-pE_7ulaVIjcZtoxkpFU20ktZb4TPNXMBdhOpscgK8YK9Xnqkhi9zofhZlpmJfQ0lvDiD1S2XhsLw63wK7T-LudQdNTX1_pPf8iexxbpTJDPCEif4O7htfg0trvUBXdtoSwiIUWd1L8blfgSaFuKwBYI3sNEdXLoCu9NSY4sGeO-Smy09UnSSVVerJU_8dfvpfhqCln5gf7MUVc6_fcFMypFOSUextaRxQ1LKIgj_NMkgREBWCcHWAWKb9HSErcqzisSShDPW0dCkLodxNMhDLlcskzH6yiZkb-ThsxNLlPJxfVIbzAdPs7syVbeiuPOkz1XSbFp7bYsbP8ufLcSy6dsTlcAn0-HmjOy1E6dv6MJ2IvcJzK_LpR3SiTHFFN-V1JYir5wV0_">PNG</a>)</li>
+      <li><a href="http://www.plantuml.com/plantuml/svg/VLLDZzem4BtdLunoWWD8gzuuL5gnAekMhsveUq0vU9CXSHVirEEWech_U-qaW8EJlI3yvddcpPUZkJuWFAeavneJNIe4kGUT8mXsuXdJKa6Xf9RwN60G52nvPnb2kC0CHHh2FmVRr7yi2B2RocCX1GeTmsZq5NPFJBCtHXZ3f2GaICqPzaeU3NamXBdGgFOimU0Z2DA62-7bbdNwOKsxcPIPaRna1S4CPI9JLB6ZObsWW4YMAa4WL2UU83MIjlnGOwWeji0rnr6DLk3DgJbORrl5Yys12T5WlnZBOChrENfwgO0mfyD8oL9paOr_KrY1AtdaWcb-Z2lPhTXrHQplI2j4RP8nARGTmtXiEBFjjoWEF1crWyReXNUjWIEaC-pE_7ulaVIjcZtoxkpFU20ktZb4TPNXMBdhOpscgK8YK9Xnqkhi9zofhZlpmJfQ0lvDiD1S2XhsLw63wK7T-LudQdNTX1_pPf8iexxbpTJDPCEif4O7htfg0trvUBXdtoSwiIUWd1L8blfgSaFuKwBYI3sNEdXLoCu9NSY4sGeO-Smy09UnSSVVerJU_8dfvpfhqCln5gf7MUVc6_fcFMypFOSUextaRxQ1LKIgj_NMkgREBWCcHWAWKb9HSErcqzisSShDPW0dCkLodxNMhDLlcskzH6yiZkb-ThsxNLlPJxfVIbzAdPs7syVbeiuPOkz1XSbFp7bYsbP8ufLcSy6dsTlcAn0-HmjOy1E6dv6MJ2IvcJzK_LpR3SiTHFFN-V1JYir5wV0_">Navigator architecture diagram</a>        (<a href="http://www.plantuml.com/plantuml/img/VLLDZzem4BtdLunoWWD8gzuuL5gnAekMhsveUq0vU9CXSHVirEEWech_U-qaW8EJlI3yvddcpPUZkJuWFAeavneJNIe4kGUT8mXsuXdJKa6Xf9RwN60G52nvPnb2kC0CHHh2FmVRr7yi2B2RocCX1GeTmsZq5NPFJBCtHXZ3f2GaICqPzaeU3NamXBdGgFOimU0Z2DA62-7bbdNwOKsxcPIPaRna1S4CPI9JLB6ZObsWW4YMAa4WL2UU83MIjlnGOwWeji0rnr6DLk3DgJbORrl5Yys12T5WlnZBOChrENfwgO0mfyD8oL9paOr_KrY1AtdaWcb-Z2lPhTXrHQplI2j4RP8nARGTmtXiEBFjjoWEF1crWyReXNUjWIEaC-pE_7ulaVIjcZtoxkpFU20ktZb4TPNXMBdhOpscgK8YK9Xnqkhi9zofhZlpmJfQ0lvDiD1S2XhsLw63wK7T-LudQdNTX1_pPf8iexxbpTJDPCEif4O7htfg0trvUBXdtoSwiIUWd1L8blfgSaFuKwBYI3sNEdXLoCu9NSY4sGeO-Smy09UnSSVVerJU_8dfvpfhqCln5gf7MUVc6_fcFMypFOSUextaRxQ1LKIgj_NMkgREBWCcHWAWKb9HSErcqzisSShDPW0dCkLodxNMhDLlcskzH6yiZkb-ThsxNLlPJxfVIbzAdPs7syVbeiuPOkz1XSbFp7bYsbP8ufLcSy6dsTlcAn0-HmjOy1E6dv6MJ2IvcJzK_LpR3SiTHFFN-V1JYir5wV0_">PNG</a>)</li>
     </ul>
-    <li>2013-04-09: <a href="tmp/Navigaattori-2013-04-09-Tampere.pdf">HSL Navigator presentation</a> (in Finnish) and <a href="http://dev.hsl.fi/tampere/">Tampere City Navigator proto demo</a> at <a href="http://www.hermia.fi/its-factory/?x1156755=1374388">the Open Transport Data event</a> (in Finnish) at <a href="http://www.hermia.fi/its-factory/in_english/">ITS Factory</a></li>    
+    <li>2013-04-09: <a href="tmp/Navigaattori-2013-04-09-Tampere.pdf">HSL Navigator presentation</a> (in Finnish) and <a href="http://dev.hsl.fi/tampere/">Tampere City Navigator proto demo</a> at <a href="http://www.hermia.fi/its-factory/?x1156755=1374388">the Open Transport Data event</a>      (in Finnish) at <a href="http://www.hermia.fi/its-factory/in_english/">ITS Factory</a></li>
   </ul>
 </ul>
+
 
 <h2 id="related">Related sites</h2>
 
@@ -695,13 +477,13 @@ You can leave feedback on HSL's <a href="http://hsl.ideascale.com/a/ideas/recent
   <li><a href="http://okroadshowjyvaskyla-okffi.eventbrite.com/">Konstruktori</a> (in Finnish) hackathon in Jyväskylä (2013-11-09)</li>
   <li><a href="http://www.apps4finland.fi/en/">Apps4Finland</a> 2013</li>
   <ul>
-     <li>Special prize by HSL: <a href="http://www.apps4finland.fi/haaste/poikkeustilanteiden-hallinta/">"Disruption management"</a> (in Finnish)</li>
-     <li>Special prize by Department of Transport: <a href="http://www.apps4finland.fi/haaste/joukkoliikennepalvelujen-kehitys/">"Improving public transport services"</a> (in Finnish)</li>
-     <li>Special prize by Open Helsinki Hack at Home: <a href="http://openhelsinki.hackathome.com/every-visitor-is-unique/">"Every visitor is unique"</a> (also available <a href="http://www.apps4finland.fi/haaste/turistin-kaupunki/">in Finnish</a>)</li>     
+    <li>Special prize by HSL: <a href="http://www.apps4finland.fi/haaste/poikkeustilanteiden-hallinta/">"Disruption management"</a> (in Finnish)</li>
+    <li>Special prize by Department of Transport: <a href="http://www.apps4finland.fi/haaste/joukkoliikennepalvelujen-kehitys/">"Improving public transport services"</a> (in Finnish)</li>
+    <li>Special prize by Open Helsinki Hack at Home: <a href="http://openhelsinki.hackathome.com/every-visitor-is-unique/">"Every visitor is unique"</a> (also available <a href="http://www.apps4finland.fi/haaste/turistin-kaupunki/">in Finnish</a>)</li>
   </ul>
   <li><a href="http://www.apps4pirkanmaa.fi/">Apps4Pirkanmaa</a> (in Finnish)</li>
   <ul>
-     <li>Special prize by City of Tampere and ITS Factory: <a href="http://apps4pirkanmaa.fi/sarjat/#transportmonitor">"Coolest public transport monitor"</a></li>
+    <li>Special prize by City of Tampere and ITS Factory: <a href="http://apps4pirkanmaa.fi/sarjat/#transportmonitor">"Coolest public transport monitor"</a></li>
   </ul>
   <li><a href="http://forumvirium.fi/tapahtuma/dev4transport-4-5102013">Dev4Transport</a> (in Finnish) developer event (2013-10-04 and 2013-10-05)</li>
   <li><a href="https://www.facebook.com/events/599708393372584/">HSL Developers' Day</a> (2013-05-16)</li>
