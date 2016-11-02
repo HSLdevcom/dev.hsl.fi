@@ -3,11 +3,11 @@
 <head>
 <title>HSL Developer Community</title>
 <meta charset='utf-8'>
-<meta name="theme-color" content="#bee4f8"> 
-<meta name="theme-color" content="#f092cd"> 
-<meta name="theme-color" content="#dfedf5"> 
-<meta name="theme-color" content="#ffffff"> 
-<meta name="theme-color" content="#007ac9"> 
+<meta name="theme-color" content="#bee4f8">
+<meta name="theme-color" content="#f092cd">
+<meta name="theme-color" content="#dfedf5">
+<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#007ac9">
 <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script>
@@ -61,256 +61,11 @@ $(function() {
             $item.find(".username").text(val.userhandle);
             $item.find(".userlink").attr("href", "http://avoindata.net/user/"+val.userhandle);
             $list.append($item);
-        });      
+        });
     });
 });
 </script>
-<style>
-body {
-    margin: 0 8px;
-    font-family: Verdana, "Helvetica Neue", Arial, sans-serif;
-    font-size: 16px;
-    color: black;
-    background: #DFEDF5;
-}
-
-h2, h3, h4, h5, h6 {
-/* confusing:    color: #007ac9; */
-    font-weight: normal;
-}
-
-h1 {
-    padding: 1em;
-    margin: 0 -8px 1em;
-    font-size: 32px;
-    background: #007ac9;
-    color: white;
-}
-
-h1 img {
-    vertical-align: middle;
-    margin-right: 45px;
-}
-
-img {
-    border: 0;
-}
-
-p {
-/*    max-width: 40em; */
-}
-
-/* link styles from beta.hsl.fi: */
-a:link {
-    color: #007AC9;
-    text-decoration: none;
-}
-a:visited {
-    color: #007AC9;
-    text-decoration: none;
-}
-a:hover, a:focus {
-    color: #0089E3;
-    text-decoration: underline;
-}
-a:active {
-    color: #003C63;
-}
-a.active {
-    color: #003C63;
-    cursor: default;
-    text-decoration: none;
-}
-a:focus {
-    outline: thin dotted;
-}
-a:hover, a:active {
-    outline: 0 none;
-}
-
-/*
-a {
-    color: #005abb;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-*/
-
-table {
-    border-collapse: collapse;
-}
-
-.right-sidebar {
-    float: right;
-    width: 300px;
-    margin-left: 8px;
-    border-radius: 14px;
-    behavior: url(PIE.htc); /* IE lt 10 */
-    padding: 14px;
-/*    background: #007ac9; */
-/*    background: #00B9E4; */
-/*    background: #F092CD; */
-    background: #BEE4F8;
-}
-
-.right-sidebar > div {
-   margin-bottom: 8px;
-}
-
-.wiki_events, .sidebox {
-    border: solid thin #e8e8e8;
-    border-radius: 5px;
-    behavior: url(PIE.htc); /* IE lt 10 */
-    color: #333333;
-    font-family: "Helvetica Neue", Arial, sans-serif;
-    background: white;
-}
-
-.wiki_events h3, .sidebox h3 {
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 16px;
-    padding: 8px;
-    margin: 0;
-    border-bottom: solid thin #e8e8e8;
-}
-
-.wiki_events a, .sidebox a {
-    color: #333333;
-    text-decoration: none;
-//    font-weight: bold;
-}
-
-.wiki_events a:hover, .sidebox a:hover {
-    text-decoration: underline;
-}
-
-.wiki_events ul {
-    display: block;
-    color: #999999;
-    margin: 0;
-    padding: 0;
-
-    max-height: 350px;
-    overflow: auto;
-}
-
-.wiki_events li {
-    display: block;
-    border-bottom: solid thin #e8e8e8;
-
-    padding: 8px;
-
-    font-size: 12px;
-    line-height: 16px;
-}
-
-.wiki_events .avatar {
-    height: 32px;
-    float: left;
-    margin-right: 4px;
-    border-radius: 4px;
-    behavior: url(PIE.htc); /* IE lt 10 */
-}
-
-.wiki_events .timestamp {
-    display: inline-block;
-    position: relative;
-    float: right;
-}
-
-.wiki_events .pagename, .avoindata_questions .title {
-    font-style: italic;
-}
-
-.wiki_events .username {
-    font-weight: bold;
-}
-
-
-.picture {
-    float: left;
-    width: 150px;
-    margin-right: 2em;
-}
-.picture img {
-    height: 100%;
-    width: 100%;
-    border: none;
-/* border: solid thin black;*/
-}
-.picture div {
-    margin: 0.5em 0;
-    text-align: center;
-    font-style: italic;
-    font-weight: bold;
-    width: 100%;
-}
-.picture div em {
-    font-style: normal;
-}
-
-.buttongroup {
-  display: block; 
-  padding: 0;
-}
-.buttongroup li {
-  display: inline-block; 
-  margin-right: 1em;
-  margin-bottom: 1em;
-  padding: 0.5em; 
-  border-radius: 0.5em;
-  behavior: url(PIE.htc); /* IE < 10 */
-  background: orange; 
-  color: white; 
-/* IE7: */
-    *zoom: 1;
-    *display: inline;
-/* IE6: */
-    _height: 2em;
-}
-.buttongroup li.disabled {
-  display: inline-block; 
-  margin-right: 1em;
-  margin-bottom: 1em;
-  padding: 0.5em; 
-  border-radius: 0.5em;
-  behavior: url(PIE.htc); /* IE < 10 */
-  background: gray; 
-  color: white; 
-  cursor: default;
-/* IE7: */
-    *zoom: 1;
-    *display: inline;
-/* IE6: */
-    _height: 2em;
-}
-.buttongroup a {
-  text-decoration: none; 
-  font-weight: bold; 
-  color: white;
-}
-
-.navbar {
-    margin: -2em -8px 1em;    
-    padding: 0.5em 0;
-    background: #BEE4F8;
-}
-
-.navbar li {
-    display: inline-block;
-    width: auto;
-    margin-right: 1em;
-/* IE7: */
-    *zoom: 1;
-    *display: inline;
-/* IE6: */
-    _height: 2em;
-}
-</style>
+<link rel="stylesheet" href="css/master.css" media="screen" title="default styles">
 </head>
 <body>
 
@@ -422,8 +177,8 @@ Region Transport HSL</a> or wider. HSL is the public authority that plans and pr
 
 Digitransit: <a href="http://digitransit.fi/en/">(project page)</a>
 <p>
-HSL's next-generation journey planner, in cooperation with 
-<a href="http://fta.fi/">Finnish Transport Agency</a>'s national 
+HSL's next-generation journey planner, in cooperation with
+<a href="http://fta.fi/">Finnish Transport Agency</a>'s national
 <a href="http://journey.fi/">Journey.fi</a>.
 </p>
 <ul>
@@ -448,7 +203,7 @@ Live maps:
 <li><a href="http://tinyurl.com/routa2014">routa</a></li>
 <li>Schematic: <a href="http://liikenne.hylly.org/rata/lahi">Commuter trains</a></li>
 <li>Data: <a href="http://dev.hsl.fi/siriaccess/vm/json?operatorRef=HSL">SIRI VM JSON</a>, <a href="http://dev.hsl.fi/tmp/mqtt/map">MQTT console</a>, <a href="http://dev.hsl.fi/hfp/">REST cache of MQTT</a></li>
-<li>Code for push API: 
+<li>Code for push API:
 <a href="https://github.com/HSLdevcom/navigator-proto/blob/master/src/routing.coffee#L169">#live-page</a>
 <a href="https://github.com/HSLdevcom/navigator-proto/blob/master/src/realtime.coffee">realtime.coffee</a>
 <a href="http://dev.hsl.fi:9002/faye/faye-browser.js">faye-browser.js</a>
@@ -476,7 +231,7 @@ HSL Navigator:
 </ul>
 
 <p>
-(The prototype works best in the Firefox, Chrome, Android and iPhone browsers. 
+(The prototype works best in the Firefox, Chrome, Android and iPhone browsers.
 Windows Phone 7.8 is unreasonable to support.)
 </p>
 
@@ -567,7 +322,7 @@ You can leave feedback on HSL's <a href="http://hsl.ideascale.com/a/ideas/recent
 </tr>
 <tr>
 <td>Routes and timetables</td>
-<td>JORE, GTFS, Kalkati</td>   
+<td>JORE, GTFS, Kalkati</td>
 <td>Old Reittiopas, New Digitransit<br>(OpenTripPlanner REST & GraphQL)</td>
 </tr>
 <tr>
@@ -658,7 +413,7 @@ You can leave feedback on HSL's <a href="http://hsl.ideascale.com/a/ideas/recent
     <ul>
         <li><a href="http://www.plantuml.com/plantuml/svg/VLLDZzem4BtdLunoWWD8gzuuL5gnAekMhsveUq0vU9CXSHVirEEWech_U-qaW8EJlI3yvddcpPUZkJuWFAeavneJNIe4kGUT8mXsuXdJKa6Xf9RwN60G52nvPnb2kC0CHHh2FmVRr7yi2B2RocCX1GeTmsZq5NPFJBCtHXZ3f2GaICqPzaeU3NamXBdGgFOimU0Z2DA62-7bbdNwOKsxcPIPaRna1S4CPI9JLB6ZObsWW4YMAa4WL2UU83MIjlnGOwWeji0rnr6DLk3DgJbORrl5Yys12T5WlnZBOChrENfwgO0mfyD8oL9paOr_KrY1AtdaWcb-Z2lPhTXrHQplI2j4RP8nARGTmtXiEBFjjoWEF1crWyReXNUjWIEaC-pE_7ulaVIjcZtoxkpFU20ktZb4TPNXMBdhOpscgK8YK9Xnqkhi9zofhZlpmJfQ0lvDiD1S2XhsLw63wK7T-LudQdNTX1_pPf8iexxbpTJDPCEif4O7htfg0trvUBXdtoSwiIUWd1L8blfgSaFuKwBYI3sNEdXLoCu9NSY4sGeO-Smy09UnSSVVerJU_8dfvpfhqCln5gf7MUVc6_fcFMypFOSUextaRxQ1LKIgj_NMkgREBWCcHWAWKb9HSErcqzisSShDPW0dCkLodxNMhDLlcskzH6yiZkb-ThsxNLlPJxfVIbzAdPs7syVbeiuPOkz1XSbFp7bYsbP8ufLcSy6dsTlcAn0-HmjOy1E6dv6MJ2IvcJzK_LpR3SiTHFFN-V1JYir5wV0_">Navigator architecture diagram</a> (<a href="http://www.plantuml.com/plantuml/img/VLLDZzem4BtdLunoWWD8gzuuL5gnAekMhsveUq0vU9CXSHVirEEWech_U-qaW8EJlI3yvddcpPUZkJuWFAeavneJNIe4kGUT8mXsuXdJKa6Xf9RwN60G52nvPnb2kC0CHHh2FmVRr7yi2B2RocCX1GeTmsZq5NPFJBCtHXZ3f2GaICqPzaeU3NamXBdGgFOimU0Z2DA62-7bbdNwOKsxcPIPaRna1S4CPI9JLB6ZObsWW4YMAa4WL2UU83MIjlnGOwWeji0rnr6DLk3DgJbORrl5Yys12T5WlnZBOChrENfwgO0mfyD8oL9paOr_KrY1AtdaWcb-Z2lPhTXrHQplI2j4RP8nARGTmtXiEBFjjoWEF1crWyReXNUjWIEaC-pE_7ulaVIjcZtoxkpFU20ktZb4TPNXMBdhOpscgK8YK9Xnqkhi9zofhZlpmJfQ0lvDiD1S2XhsLw63wK7T-LudQdNTX1_pPf8iexxbpTJDPCEif4O7htfg0trvUBXdtoSwiIUWd1L8blfgSaFuKwBYI3sNEdXLoCu9NSY4sGeO-Smy09UnSSVVerJU_8dfvpfhqCln5gf7MUVc6_fcFMypFOSUextaRxQ1LKIgj_NMkgREBWCcHWAWKb9HSErcqzisSShDPW0dCkLodxNMhDLlcskzH6yiZkb-ThsxNLlPJxfVIbzAdPs7syVbeiuPOkz1XSbFp7bYsbP8ufLcSy6dsTlcAn0-HmjOy1E6dv6MJ2IvcJzK_LpR3SiTHFFN-V1JYir5wV0_">PNG</a>)</li>
     </ul>
-    <li>2013-04-09: <a href="tmp/Navigaattori-2013-04-09-Tampere.pdf">HSL Navigator presentation</a> (in Finnish) and <a href="http://dev.hsl.fi/tampere/">Tampere City Navigator proto demo</a> at <a href="http://www.hermia.fi/its-factory/?x1156755=1374388">the Open Transport Data event</a> (in Finnish) at <a href="http://www.hermia.fi/its-factory/in_english/">ITS Factory</a></li>    
+    <li>2013-04-09: <a href="tmp/Navigaattori-2013-04-09-Tampere.pdf">HSL Navigator presentation</a> (in Finnish) and <a href="http://dev.hsl.fi/tampere/">Tampere City Navigator proto demo</a> at <a href="http://www.hermia.fi/its-factory/?x1156755=1374388">the Open Transport Data event</a> (in Finnish) at <a href="http://www.hermia.fi/its-factory/in_english/">ITS Factory</a></li>
   </ul>
 </ul>
 
@@ -697,7 +452,7 @@ You can leave feedback on HSL's <a href="http://hsl.ideascale.com/a/ideas/recent
   <ul>
      <li>Special prize by HSL: <a href="http://www.apps4finland.fi/haaste/poikkeustilanteiden-hallinta/">"Disruption management"</a> (in Finnish)</li>
      <li>Special prize by Department of Transport: <a href="http://www.apps4finland.fi/haaste/joukkoliikennepalvelujen-kehitys/">"Improving public transport services"</a> (in Finnish)</li>
-     <li>Special prize by Open Helsinki Hack at Home: <a href="http://openhelsinki.hackathome.com/every-visitor-is-unique/">"Every visitor is unique"</a> (also available <a href="http://www.apps4finland.fi/haaste/turistin-kaupunki/">in Finnish</a>)</li>     
+     <li>Special prize by Open Helsinki Hack at Home: <a href="http://openhelsinki.hackathome.com/every-visitor-is-unique/">"Every visitor is unique"</a> (also available <a href="http://www.apps4finland.fi/haaste/turistin-kaupunki/">in Finnish</a>)</li>
   </ul>
   <li><a href="http://www.apps4pirkanmaa.fi/">Apps4Pirkanmaa</a> (in Finnish)</li>
   <ul>

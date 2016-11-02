@@ -1,0 +1,253 @@
+body {
+    margin: 0 8px;
+    font-family: Verdana, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    color: black;
+    background: #DFEDF5;
+}
+
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+/* confusing:    color: #007ac9; */
+    font-weight: normal;
+}
+
+h1 {
+    padding: 1em;
+    margin: 0 -8px 1em;
+    font-size: 32px;
+    background: #007ac9;
+    color: white;
+}
+
+h1 img {
+    vertical-align: middle;
+    margin-right: 45px;
+}
+
+
+img {
+    border: 0;
+}
+
+p {
+/*    max-width: 40em; */
+}
+
+
+/* link styles from beta.hsl.fi: */
+a:link {
+    color: #007AC9;
+    text-decoration: none;
+}
+a:visited {
+    color: #007AC9;
+    text-decoration: none;
+}
+a:hover, a:focus {
+    color: #0089E3;
+    text-decoration: underline;
+}
+a:active {
+    color: #003C63;
+}
+a.active {
+    color: #003C63;
+    cursor: default;
+    text-decoration: none;
+}
+a:focus {
+    outline: thin dotted;
+}
+a:hover, a:active {
+    outline: 0 none;
+}
+
+/*
+a {
+    color: #005abb;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+*/
+
+
+
+table {
+    border-collapse: collapse;
+}
+
+.right-sidebar {
+    float: right;
+    width: 300px;
+    margin-left: 8px;
+    border-radius: 14px;
+    behavior: url(PIE.htc); /* IE lt 10 */
+    padding: 14px;
+/*    background: #007ac9; */
+/*    background: #00B9E4; */
+/*    background: #F092CD; */
+    background: #BEE4F8;
+}
+
+.right-sidebar > div {
+   margin-bottom: 8px;
+}
+
+.wiki_events, .sidebox {
+    border: solid thin #e8e8e8;
+    border-radius: 5px;
+    behavior: url(PIE.htc); /* IE lt 10 */
+    color: #333333;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background: white;
+}
+
+.wiki_events h3, .sidebox h3 {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 16px;
+    padding: 8px;
+    margin: 0;
+    border-bottom: solid thin #e8e8e8;
+}
+
+.wiki_events a, .sidebox a {
+    color: #333333;
+    text-decoration: none;
+//    font-weight: bold;
+}
+
+.wiki_events a:hover, .sidebox a:hover {
+    text-decoration: underline;
+}
+
+.wiki_events ul {
+    display: block;
+    color: #999999;
+    margin: 0;
+    padding: 0;
+
+    max-height: 350px;
+    overflow: auto;
+}
+
+.wiki_events li {
+    display: block;
+    border-bottom: solid thin #e8e8e8;
+
+    padding: 8px;
+
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.wiki_events .avatar {
+    height: 32px;
+    float: left;
+    margin-right: 4px;
+    border-radius: 4px;
+    behavior: url(PIE.htc); /* IE lt 10 */
+}
+
+.wiki_events .timestamp {
+    display: inline-block;
+    position: relative;
+    float: right;
+}
+
+.wiki_events .pagename, .avoindata_questions .title {
+    font-style: italic;
+}
+
+.wiki_events .username {
+    font-weight: bold;
+}
+
+
+.picture {
+    float: left;
+    width: 150px;
+    margin-right: 2em;
+}
+.picture img {
+    height: 100%;
+    width: 100%;
+    border: none;
+/* border: solid thin black;*/
+}
+.picture div {
+    margin: 0.5em 0;
+    text-align: center;
+    font-style: italic;
+    font-weight: bold;
+    width: 100%;
+}
+.picture div em {
+    font-style: normal;
+}
+
+.buttongroup {
+  display: block;
+  padding: 0;
+}
+.buttongroup li {
+  display: inline-block;
+  margin-right: 1em;
+  margin-bottom: 1em;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  behavior: url(PIE.htc); /* IE < 10 */
+  background: orange;
+  color: white;
+/* IE7: */
+    *zoom: 1;
+    *display: inline;
+/* IE6: */
+    _height: 2em;
+}
+.buttongroup li.disabled {
+  display: inline-block;
+  margin-right: 1em;
+  margin-bottom: 1em;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  behavior: url(PIE.htc); /* IE < 10 */
+  background: gray;
+  color: white;
+  cursor: default;
+/* IE7: */
+    *zoom: 1;
+    *display: inline;
+/* IE6: */
+    _height: 2em;
+}
+.buttongroup a {
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
+}
+
+.navbar {
+    margin: -2em -8px 1em;
+    padding: 0.5em 0;
+    background: #BEE4F8;
+}
+
+.navbar li {
+    display: inline-block;
+    width: auto;
+    margin-right: 1em;
+/* IE7: */
+    *zoom: 1;
+    *display: inline;
+/* IE6: */
+    _height: 2em;
+}
