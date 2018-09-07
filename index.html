@@ -172,7 +172,6 @@
 
 <ul>
   <li><a href="https://www.hsl.fi/en/timetables-and-routes/mobile-apps">List of applications by platform</a></li>
-  <li><a href="http://www.pubtrans.it/">Pubtrans.it APIs by the community</a></li>
 </ul>
 
 <h2 id="journeyplanning">Journey planning</h2>
@@ -197,7 +196,6 @@
   <li><a href="http://dev.hsl.fi/graphql/console">GraphQL console</a> including schema documentation</li>
 </ul>
 <ul>
-  <li><a href="http://dev.hsl.fi/now">HSL Now</a> - a prototype front page</li>
   <li><a href="http://dev.hsl.fi/doc/HSL-JP-FunctionalSpecification.pdf">Functional Specification of the old HSL Journey Planner</a></li>
 </ul>
 
@@ -211,11 +209,7 @@
 <h3>Live maps</h3>
 
 <ul>
-  <li><a href="http://dev.hsl.fi/live">Live demo</a> (out of order)</li>
-  <li><a href="http://dev.hsl.fi/navigator-proto/#live-page">HSL Navigator live page</a></li>
-  <li><a href="http://tinyurl.com/routa2014">routa</a></li>
-  <li>Schematic: <a href="http://liikenne.hylly.org/rata/lahi">Commuter trains</a></li>
-  <li>Data: <a href="http://dev.hsl.fi/siriaccess/vm/json?operatorRef=HSL">SIRI VM JSON</a>, <a href="http://dev.hsl.fi/tmp/mqtt/map">MQTT console</a>, <a href="http://dev.hsl.fi/hfp/">REST cache of MQTT</a></li>
+  <li>Data: <a href="http://dev.hsl.fi/tmp/mqtt/map">MQTT console</a></li>
   <li>Code for push API:
     <a href="https://github.com/HSLdevcom/navigator-proto/blob/master/src/routing.coffee#L169">#live-page</a>
     <a href="https://github.com/HSLdevcom/navigator-proto/blob/master/src/realtime.coffee">realtime.coffee</a>
@@ -267,7 +261,6 @@
   <li>Citybike stations and availability (<a href="http://api.digitransit.fi/routing/v1/routers/hsl/bike_rental">REST API</a>, <a href="http://dev.hsl.fi/graphql/console/?query={%0A%20%20bikeRentalStations%20{%0A%20%20%20%20stationId%0A%20%20%20%20name%0A%20%20%20%20lat%0A%20%20%20%20lon%0A%20%20%20%20bikesAvailable%0A%20%20%20%20spacesAvailable%0A%20%20}%0A}">GraphQL console</a>)</li>
   <li>International <a href="http://citybik.es/">CityBikes</a> service and <a href="http://api.citybik.es/v2/networks/citybikes-helsinki"> REST API</a></li>
   <li><a href="https://p.hsl.fi/">Park and Ride</a></li>
-  <li>Experimental: <a href="https://github.com/Yleisradio/mydata-hackathon-2016">Citybike MyData API</a> for bike users to share their rental history with apps.</li>
   <li>Experimental: history data from <a href="/tmp/citybikes/">stations</a> and <a href="/tmp/citybike-stats/">statistics</a>. <em>The statistics are currently <a href="https://github.com/HSLdevcom/hsl-open-data/issues/1">broken</a> as some periods of time have gone missing from them (seen as sudden drops and jumps in the cumulative numbers).</em></li>
 </ul>
 
@@ -286,8 +279,6 @@
   </li>
   <li><a href="http://bikes.oobrien.com/helsinki/">Bike Share Map Helsinki Live</a></li>
   <li><a href="https://www.youtube.com/watch?v=qGllzWt0acU">Video based on simulation of HSL traffic</a></li>
-  <li><a href="https://dev.hsl.fi/live/">Live map of HSL vehicles</a> (out of order)</li>
-  <!-- <li><a href="http://liikenne.hylly.org/rata/lahi/">Live schematic map of commuter trains</a></li> -->
   <li><a href="http://14142.net/kartalla/">Simulation of all HSL traffic on a map</a></li>
 </ul>
 
@@ -325,7 +316,6 @@
   </li>
   <li><a href="https://github.com/HSLdevcom/navigator-server">Navigator Proto real-time server component</a> (source code)</li>
   <li><a href="https://github.com/HSLdevcom/hsl-visualisation">HSL Visualisation</a> (examples and code)</li>
-  <li><a href="https://github.com/samuelmr/">Pubtrans.it APIs</a> (source code)</li>
   <li><a href="https://github.com/HSLdevcom/kalkati2gtfs">Kalkati to GTFS converter</a> (source code)</li>
   <li><a href="https://github.com/HSLdevcom/localroute">LocalRoute.js</a> (source code)</li>
 </ul>
@@ -386,33 +376,15 @@
 
 
 <ul>
-  <li><a href="http://developer.reittiopas.fi"><strong>Old</strong> official resources by HSL</a></li>
-  <ul>
-    <li>Developer account registration form and contact form</li>
-    <li>Time tables as Open Data in XML and GTFS formats</li>
-    <li>Old Journey planner API</li>
-    <li>Old Realtime API of service disruption info (Poikkeusinfo)</li>
-    <li>Old Realtime API of next departures (Omat lähdöt)</li>
-    <li>Old Realtime API of vehicle locations (HSL Live)</li>
+    <!-- <li>Old Realtime API of vehicle locations (HSL Live)</li>
     <ul>
       <li><a href="tmp/hsllive.txt.bz2">Example dump</a> (867 MB, 88.7 million observations)</li>
-    </ul>
-  </ul>
+    </ul> -->
 
   <li>New resources</li>
   <ul>
-    <li><a href="http://dev.hsl.fi/siriaccess/vm/json?operatorRef=HSL">Realtime vehicle locations</a> in SIRI VM JSON format, from navigator-server</li>
-    <ul>
-      <li>(Values of <code>lineRef</code> are "JORE codes" and can be converted to passenger-friendly line numbers using the <a href="https://github.com/HSLdevcom/navigator-proto/blob/master/src/routing.coffee#L40"><code>interpret_jore</code></a> example
-        code.)</li>
-      <li>(<code>lineRef</code> query parameter can be added to limit the response to that single "JORE code".)</a>
-    </ul>
+    <!-- <a href="https://github.com/HSLdevcom/navigator-proto/blob/master/src/routing.coffee#L40"><code>interpret_jore</code></a> --> 
     <li><a href="tmp/Raitiovaunujen_tietoliikennelaitteet_2014-01-20.csv">Vehicle Wifi MAC addresses</a></li>
-    <li><a href="tmp/kutsuplus_mac_addresses_2014-02-05.csv">Kutsuplus Wifi MAC addresses</a></li>
-    <li><a href="http://kutsuplus.fi/sms">Kutsuplus SMS interface</a> (on-demand minivan service)</li>
-    <ul>
-      <li><a href="tmp/kutsupluspysakit.txt">List of Kutsuplus stops</a> (#-separated CSV file)</li>
-    </ul>
     <li><a href="infopoiminta/">JORE "infopoiminta"</a> (Complete, non-standard schedule exports)</li>
     <ul>
       <li><a href="doc/LIJ_infodoc2_4_lyhennetty_2.rtf">Documentation</a>
@@ -429,7 +401,6 @@
 
   <li>OpenTripPlanner</li>
   <ul>
-    <li>demo: <a href="opentripplanner-webapp/">Helsinki</a>, <a href="http://dev.hsl.fi:8081/opentripplanner-webapp/">Manchester</a>, <a href="tampere/opentripplanner-webapp/">Tampere</a></li>
     <li><a href="http://www.opentripplanner.org/apidoc/">API</a> endpoints: <a href="opentripplanner-api-webapp/ws/metadata">Helsinki</a>, <a href="http://dev.hsl.fi/manchester/opentripplanner-api-webapp/ws/metadata">Manchester</a>, <a href="http://dev.hsl.fi/tampere/opentripplanner-api-webapp/ws/metadata">Tampere</a></li>
   </ul>
   <li>Presentations</li>
@@ -451,7 +422,6 @@
   <li><a href="http://wiki.itsfactory.fi">ITS Factory Developer Wiki</a> - Intelligent Transport Systems developers in Tampere region
   <li><a href="http://dev.hel.fi/">Helsinki Developer Portal</a> - APIs provided by City of Helsinki</li>
   <li><a href="http://developer.matka.fi/">Journey.fi API</a> - Public transport timetables and routing within Finland</li>
-  <li><a href="http://www.vr.fi/fi/index/palvelut/avoin_data/Junatkartalla-rajapinta.html">Junat kartalla API</a> - Realtime location of trains (in Finnish)</li>
   <li><a href="http://fi.okfn.org/">Open Knowledge Finland ry</a> - a non-profit network promoting Open Data in Finland</li>
 </ul>
 
