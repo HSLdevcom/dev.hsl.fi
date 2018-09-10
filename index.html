@@ -11,60 +11,6 @@
   <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script>
-  <script type="text/javascript">
-  $(function() {
-    $.getJSON('https://api.github.com/repos/hsldevcom/openjourneyplanner/events?callback=?', function(data) {
-
-      var list = $('#gollum-events');
-      var seen = {};
-      var seen_num = 0;
-
-      $.each(data.data, function(key, val) {
-        if (val.type == "GollumEvent") {
-          $.each(val.payload.pages, function(key2, val2) {
-            if (seen[val2.page_name] || seen_num >= 10) return;
-            seen[val2.page_name] = true;
-            seen_num++;
-
-            $item = $($("#gollum-events li.template").clone());
-            $item.removeClass("template").show();
-            $item.find(".avatar").attr("src", val.actor.avatar_url);
-            $item.find(".username").text(val.actor.login);
-            $item.find(".userlink").attr("href", "https://github.com/" + val.actor.login);
-            $item.find(".action").text(val2.action);
-            $item.find(".pagename").text(val2.page_name);
-            $item.find(".pagename").attr("href", val2.html_url);
-            $item.find(".timestamp").text(moment(val.created_at).fromNow());
-
-            list.append($item);
-          });
-        }
-      });
-    });
-
-    $.post("http://api.avoindata.net/search/questions", {
-      term: "liikenne joukkoliikenne hsl tkl matkakortti kartta"
-    }, function(data) {
-      $list = $('#avoindata_questions');
-      $.each(data.questions, function(key, val) {
-        $item = $($("#avoindata_questions li.template").clone());
-        $item.removeClass("template").show();
-        $item.find(".link").attr("href", val.url);
-        $item.find(".title").text(val.title);
-        $item.find(".timestamp").text(moment(val.created * 1000).fromNow());
-        if (val.answercount) {
-          $item.find(".action").text("received " + val.answercount + " answers.");
-        } else {
-          $item.find(".action").text("asks:");
-        }
-        $item.find(".avatar").attr("src", val.useravatar);
-        $item.find(".username").text(val.userhandle);
-        $item.find(".userlink").attr("href", "http://avoindata.net/user/" + val.userhandle);
-        $list.append($item);
-      });
-    });
-  });
-  </script>
   <link rel="stylesheet" href="css/master.css" media="screen" title="default styles">
 </head>
 <body>
@@ -104,29 +50,6 @@
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     </div>
   </div>
-
-  <div class="wiki_events avoindata_questions">
-    <h3><a href="http://avoindata.net">Recent Avoindata.net questions</a></h3>
-    <ul id="avoindata_questions">
-      <li class="template" style="display: none">
-        <span class="timestamp"></span>
-        <a class="userlink"><img class="avatar" /> <span class="username"></span></a> <span class="action"></span> <br />
-        <a class="link title"></a><br clear="both" />
-      </li>
-    </ul>
-  </div>
-
-  <div class="wiki_events">
-    <h3><a href="https://github.com/HSLdevcom/hsl-navigator/wiki/_pages">Recent Wiki pages</a></h3>
-    <ul id="gollum-events">
-      <li class="template" style="display: none">
-        <span class="timestamp"></span>
-        <a class="userlink"><img class="avatar" /> <span class="username"></span></a> <span class="action"></span> page <br />
-        <a class="pagename"></a><br clear="both" />
-      </li>
-    </ul>
-  </div>
-
 </div>
 
 
