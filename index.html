@@ -11,60 +11,6 @@
   <link rel="shortcut icon" href="favicon.ico" type="image/vnd.microsoft.icon" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script>
-  <script type="text/javascript">
-  $(function() {
-    $.getJSON('https://api.github.com/repos/hsldevcom/openjourneyplanner/events?callback=?', function(data) {
-
-      var list = $('#gollum-events');
-      var seen = {};
-      var seen_num = 0;
-
-      $.each(data.data, function(key, val) {
-        if (val.type == "GollumEvent") {
-          $.each(val.payload.pages, function(key2, val2) {
-            if (seen[val2.page_name] || seen_num >= 10) return;
-            seen[val2.page_name] = true;
-            seen_num++;
-
-            $item = $($("#gollum-events li.template").clone());
-            $item.removeClass("template").show();
-            $item.find(".avatar").attr("src", val.actor.avatar_url);
-            $item.find(".username").text(val.actor.login);
-            $item.find(".userlink").attr("href", "https://github.com/" + val.actor.login);
-            $item.find(".action").text(val2.action);
-            $item.find(".pagename").text(val2.page_name);
-            $item.find(".pagename").attr("href", val2.html_url);
-            $item.find(".timestamp").text(moment(val.created_at).fromNow());
-
-            list.append($item);
-          });
-        }
-      });
-    });
-
-    $.post("http://api.avoindata.net/search/questions", {
-      term: "liikenne joukkoliikenne hsl tkl matkakortti kartta"
-    }, function(data) {
-      $list = $('#avoindata_questions');
-      $.each(data.questions, function(key, val) {
-        $item = $($("#avoindata_questions li.template").clone());
-        $item.removeClass("template").show();
-        $item.find(".link").attr("href", val.url);
-        $item.find(".title").text(val.title);
-        $item.find(".timestamp").text(moment(val.created * 1000).fromNow());
-        if (val.answercount) {
-          $item.find(".action").text("received " + val.answercount + " answers.");
-        } else {
-          $item.find(".action").text("asks:");
-        }
-        $item.find(".avatar").attr("src", val.useravatar);
-        $item.find(".username").text(val.userhandle);
-        $item.find(".userlink").attr("href", "http://avoindata.net/user/" + val.userhandle);
-        $list.append($item);
-      });
-    });
-  });
-  </script>
   <link rel="stylesheet" href="css/master.css" media="screen" title="default styles">
 </head>
 <body>
@@ -75,16 +21,14 @@
 <div class="navbar">
   <ul>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#upcoming">Upcoming</a></li>
-    <li><a href="#services">Services</a></li>
+    <li><a href="#applications">Applications</a></li>
     <li><a href="#journeyplanning">Journey planning</a></li>
-    <!-- <li><a href="#navigator">Navigator</a></li> -->
     <li><a href="#maps">Maps</a></li>
+    <li><a href="#ticket-sales">Ticket sales</a></li>
     <li><a href="#travel-card">Travel card</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#resources">Documentation</a></li>
-    <li><a href="#related">Related</a></li>
-    <li><a href="#past">Past</a></li>
+    <li><a href="#resources">Other resources</a></li>
+    <li><a href="#related">Related sites</a></li>
+    <li><a href="#archive">Archive</a></li>
   </ul>
 </div>
 
@@ -104,29 +48,6 @@
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     </div>
   </div>
-
-  <div class="wiki_events avoindata_questions">
-    <h3><a href="http://avoindata.net">Recent Avoindata.net questions</a></h3>
-    <ul id="avoindata_questions">
-      <li class="template" style="display: none">
-        <span class="timestamp"></span>
-        <a class="userlink"><img class="avatar" /> <span class="username"></span></a> <span class="action"></span> <br />
-        <a class="link title"></a><br clear="both" />
-      </li>
-    </ul>
-  </div>
-
-  <div class="wiki_events">
-    <h3><a href="https://github.com/HSLdevcom/hsl-navigator/wiki/_pages">Recent Wiki pages</a></h3>
-    <ul id="gollum-events">
-      <li class="template" style="display: none">
-        <span class="timestamp"></span>
-        <a class="userlink"><img class="avatar" /> <span class="username"></span></a> <span class="action"></span> page <br />
-        <a class="pagename"></a><br clear="both" />
-      </li>
-    </ul>
-  </div>
-
 </div>
 
 
@@ -136,13 +57,13 @@
 </div>
 
 <div class="picture" style="float: left; width: auto; height: 300px">
-  <a href="#journeyplanning"><img src="images/digitransit-2015-05-12.png" /></a>
+  <a href="#journeyplanning"><img src="images/digitransit-ui.png" /></a>
 </div>
 
 
 <br clear="left" style="font-size: 0" />
 
-<p>HSL Developer Community is open for all individuals and organisations interested in the Open Data and Open Source software regarding <a href="https://www.hsl.fi/en">Helsinki Region Transport HSL</a> or wider. HSL is the public authority that plans and procures the public transport (ferry, tram, metro, train, bus) within its member municipalities (Helsinki, Vantaa, Espoo, Kauniainen, Kirkkonummi, Kerava, and Sipoo).</p>
+<p>HSL Developer Community is open for all individuals and organisations interested in the Open Data and Open Source software regarding <a href="https://www.hsl.fi/en">Helsinki Region Transport HSL</a> or wider. HSL is the public authority that plans and procures the public transport (ferry, tram, metro, train, bus) within its member municipalities (Helsinki, Vantaa, Espoo, Kauniainen, Kirkkonummi, Kerava, Sipoo, Siuntio and Tuusula).</p>
 
 
 <h2 id="contact">Contact</h2>
@@ -152,32 +73,19 @@
   <li><a href="https://twitter.com/HSLdevcom"><strong>twitter</strong>.com/HSLdevcom</a></li>
   <!-- <li><a href="https://twitter.com/HSLdevcom" class="twitter-follow-button" data-show-count="true">twitter.com/HSLdevcom</a></li> -->
   <li><a href="https://github.com/HSLdevcom"><strong>github</strong>.com/HSLdevcom</a></li>
-  <li><a href="http://avoindata.net/">Avoin data</a> (Finnish-language Q&A support site) - Avoimen datan tukisivusto</li>
-  <li>Chat channel <a href="http://webchat.freenode.net/?channels=hsldevcom"><code>#hsldevcom</code></a> on <strong>IRC</strong>Net and Freenode networks.</li>
-  <li><a href="http://hsl.ideascale.com/">Aloitelaatikko</a> (Finnish-language feedback forum)</li>
 </ul>
 
-
-<h2 id="upcoming">Upcoming</h2>
-
-<ul>
-  <li><a href="http://www.kartogra.fi/karttahaaste/">Map 2016 Challenge</a> (in Finnish) with Cartographic Society of Finland, deadline Oct 17.</li>
-  <li><a href="http://ultrahack.org/">Ultrahack finals</a> in Helsinki on Nov 25-27.</li>
-  <li><em><!-- No current news. -->You can check out <a href="#past">past activities</a>.</em></li>
-</ul>
-
-
-
-<h2 id="services">Services</h2>
+<h2 id="applications">Applications</h2>
 
 <ul>
   <li><a href="https://www.hsl.fi/en/timetables-and-routes/mobile-apps">List of applications by platform</a></li>
+  <li><a href="https://hri.fi/data/fi/dataset/showcases/hsl-reittiopas-api">List of applications using HSL APIs or data</a></li>
 </ul>
 
 <h2 id="journeyplanning">Journey planning</h2>
 <br clear="left" style="font-size: 0" />
 <div class="picture">
-  <a href="http://matka.hsl.fi/"><img src="images/digitransit-2015-05-12.png" /></a>
+  <a href="https://www.reittiopas.fi/"><img src="images/digitransit-ui.png" /></a>
 </div>
 
 
@@ -189,62 +97,41 @@
   <a href="http://fta.fi/">Finnish Transport Agency</a>'s national
   <a href="http://journey.fi/">Journey.fi</a>.
 </p>
+
+<p>
+  Digitransit project includes digitransit-ui user interface and back-end services providing APIs for public
+  transportation data, geocoding and maps.
+</p>
 <ul>
-  <li><a href="http://beta.reittiopas.fi/">Digitransit application</a> - built on HTML5, React, Relay, GraphQL, MQTT</li>
-  <li>Tested to work on Firefox 29-, Chrome 45-, IE 9-, iOS 6- Safari (using <a href="http://browserstack.com/">Browserstack</a>)</li>
-  <!-- li><a href="http://invis.io/MY2F0CQ2W">Digitransit clickable design wireframe</a></li -->
-  <li><a href="http://dev.hsl.fi/graphql/console">GraphQL console</a> including schema documentation</li>
-</ul>
-<ul>
-  <li><a href="http://dev.hsl.fi/doc/HSL-JP-FunctionalSpecification.pdf">Functional Specification of the old HSL Journey Planner</a></li>
+  <li><a href="https://digitransit.fi/en/developers/">Developer page</a></li>
+  <!-- TODO: fix layout <ul>
+    <li><a href="https://digitransit.fi/en/developers/apis/1-routing-api/">Routing API</a></li>
+    <li><a href="https://digitransit.fi/en/developers/apis/2-geocoding-api/">Geocoding API</a></li>
+    <li><a href="https://digitransit.fi/en/developers/apis/3-map-api/">Map API</a></li>
+    <li><a href="https://digitransit.fi/en/developers/apis/4-realtime-api/">Real-time API</a></li>
+  </ul> -->
+  <li><a href="https://api.digitransit.fi/graphiql/hsl">GraphQL console</a>, including schema documentation</li>
+  <li><a href="https://api.digitransit.fi/routing-data/v2/hsl/">Data container</a>, including <a href="https://api.digitransit.fi/routing-data/v2/hsl/HSL.zip">GTFS feed</a></li>
+  <li><a href="https://www.reittiopas.fi/">Digitransit application</a> - built on HTML5, React, Relay, GraphQL, MQTT <a href="https://github.com/HSLdevcom/digitransit-ui">(source code)</a></li>
 </ul>
 
 <br clear="left" style="font-size: 0" />
 <div class="picture">
-  <a href="http://dev.hsl.fi/navigator-proto/#live-page"><img src="images/siri-vm-2015-02-19.2-scaled.png" /></a>
+  <img src="images/siri-vm-2015-02-19.2-scaled.png" />
 </div>
 
 
 
 <h3>Live maps</h3>
 
-<ul>
-  <li>Data: <a href="http://dev.hsl.fi/tmp/mqtt/map">MQTT console</a></li>
-  <li>Code for push API:
-    <a href="https://github.com/HSLdevcom/navigator-proto/blob/master/src/routing.coffee#L169">#live-page</a>
-    <a href="https://github.com/HSLdevcom/navigator-proto/blob/master/src/realtime.coffee">realtime.coffee</a>
-    <a href="http://dev.hsl.fi:9002/faye/faye-browser.js">faye-browser.js</a>
-  </li>
-</ul>
-
-<!-- <h2 id="navigator">Work in progress: HSL Navigator</h2> -->
-<a name="navigator">
-  <br clear="left" style="font-size: 0" />
-  <div class="picture">
-    <a href="fe2013"><img src="fe2013/screenshot3-libraries.png" /></a>
-  </div>
-
-
-<h3>HSL Navigator</h3>
-<p>HSL Navigator is a fully open-source service based solely on open data.</p>
-
-<ul class="buttongroup">
-  <li><a href="http://dev.hsl.fi/navigator-proto">Try in Helsinki!</a></li>
-  <li><a href="http://dev.itsfactory.fi/citynav/">Now in Tampere!</a></li>
-  <li><a href="http://navi.oulunliikenne.fi">New in Oulu!</a></li>
-  <li class="disabled"><a href="http://dev.hsl.fi/berlin">Berlin</a></li>
-  <li class="disabled"><a href="http://dev.hsl.fi/manchester">Manchester</a></li>
-  <li class="disabled"><a href="http://dev.hsl.fi/finland">Finland</a></li>
-  <li class="disabled"><a href="http://dev.hsl.fi/amsterdam">Amsterdam</a></li>
-  <li class="disabled"><a href="http://dev.hsl.fi/finland-old">Jyväskylä</a></li>
-</ul>
-
-<p>(The prototype works best in the Firefox, Chrome, Android and iPhone browsers. Windows Phone 7.8 is unreasonable to support.)</p>
-
-<p style="margin-bottom: 0">
-  You can leave feedback on HSL's <a href="http://hsl.ideascale.com/a/ideas/recent/campaign-filter/byids/campaigns/51154">Feedback Forum</a> (in Finnish).
+<p>
+Most vehicles in the HSL area publish their status to a MQTT server. MQTT clients can subscribe to these status messages and filter them based on e.g. transport mode and geographical area.
 </p>
 
+<ul>
+  <li><a href="https://digitransit.fi/en/developers/apis/4-realtime-api/vehicle-positions/">MQTT API documentation</a>
+  <li><a href="https://vehiclepositionsmapdemo--digitransit.repl.co/">MQTT demo</a> - displays vehicles on a map <a href="https://repl.it/@digitransit/VehiclePositionsMapDemo">(source code)</a></li>
+</ul>
 
 <br clear="left" style="font-size: 0" />
 
@@ -254,28 +141,38 @@
 
 
 
-<h2 id="cycling">Cycling</h2>
+<h3 id="cycling">Cycling</h3>
 
 <ul>
-  <li>You can search for multi-modal routes including bicycles or citybikes in the <a href="https://digitransit.fi/en/developers/services-and-apis/1-routing-api/">Digitransit routing API</a>.</li>
-  <li>Citybike stations and availability (<a href="http://api.digitransit.fi/routing/v1/routers/hsl/bike_rental">REST API</a>, <a href="http://dev.hsl.fi/graphql/console/?query={%0A%20%20bikeRentalStations%20{%0A%20%20%20%20stationId%0A%20%20%20%20name%0A%20%20%20%20lat%0A%20%20%20%20lon%0A%20%20%20%20bikesAvailable%0A%20%20%20%20spacesAvailable%0A%20%20}%0A}">GraphQL console</a>)</li>
-  <li>International <a href="http://citybik.es/">CityBikes</a> service and <a href="http://api.citybik.es/v2/networks/citybikes-helsinki"> REST API</a></li>
-  <li><a href="https://p.hsl.fi/">Park and Ride</a></li>
-  <li>Experimental: history data from <a href="/tmp/citybikes/">stations</a> and <a href="/tmp/citybike-stats/">statistics</a>. <em>The statistics are currently <a href="https://github.com/HSLdevcom/hsl-open-data/issues/1">broken</a> as some periods of time have gone missing from them (seen as sudden drops and jumps in the cumulative numbers).</em></li>
+  <li><a href="https://digitransit.fi/en/developers/apis/1-routing-api/bicycling/">Digitransit API</a> provides a way to query bicycling routes and bike rental stations</li>
+  <li>See also: International <a href="http://citybik.es/">CityBikes</a> service and <a href="https://api.citybik.es/v2/"> REST API</a> <a href="http://api.citybik.es/v2/networks/citybikes-helsinki"><i>(endpoint for HSL area)</i></a></li>
+  <!-- <li><a href="https://p.hsl.fi/">Park and Ride</a></li> -->
+  <li>Experimental: history data from <a href="/tmp/citybikes/">stations</a> and <a href="/tmp/citybike-stats/">statistics</a><ul><li><em>The statistics are currently <a href="https://github.com/HSLdevcom/hsl-open-data/issues/1">broken</a> as some periods of time have gone missing from them (seen as sudden drops and jumps in the cumulative numbers).</em></li></ul></li>
 </ul>
 
+<h2 id="ticket-sales">Ticket sales</h2>
+<div class="picture">
+  <a href="https://sales-api.hsl.fi/"><img src="images/hsl-ticket.jpg" /></a>
+</div>
 
+<p><a href="https://sales-api.hsl.fi/">HSL OpenMaaS API</a> can be used to order public transport tickets, which can be embedded into your own mobile application.</p>
+<ul>
+  <li><a href="https://sales-api.hsl.fi/info">Documentation</a></li>
+  <li><a href="https://github.com/HSLOpenMaaS/hsl-openmaas-clientlib">Client library</a></li>
+  <li><a href="https://github.com/HSLOpenMaaS/hsl-openmaas-clientlib/tree/master/example/react-native">Example application</a></li>
+</ul>
+
+<br clear="left" style="font-size: 0" />
 
 <h2 id="maps">Maps</h2>
 
 <ul>
-  <li><a href="https://beta.reittiopas.fi/">New official map style</a> in Journey Planner Beta (based on Digitransit APIs)</li>
+  <li>HSL style map tiles are available from <a href="https://digitransit.fi/en/developers/apis/3-map-api/">Digitransit APIs</a></li>
+  <li><a href="https://www.reittiopas.fi/">New official map style</a> in Journey Planner (based on Digitransit APIs)</li>
   <ul>
-    <li><a href="https://beta.reittiopas.fi/linjat/HSL:2550:0:01">For example, live map of line number 550 towards Westend</a></li>
+    <li><a href="https://www.reittiopas.fi/linjat/HSL:2550/pysakit/HSL:2550:0:01">For example, live map of line number 550 towards Westend</a></li>
   </ul>
   <li><a href="https://www.flickr.com/photos/29682104@N04/with/9711135914/">Unofficial (less) schematic map</a> by Elmo Allén</a>
-  </li>
-  <li><a href="https://dl.dropboxusercontent.com/u/16085671/HSL%20runkolinjat%202017%20versio%204.1%20Elmo%20Allen.png">Unofficial (more) schematic map</a> by Elmo Allén</li>
   </li>
   <li><a href="http://bikes.oobrien.com/helsinki/">Bike Share Map Helsinki Live</a></li>
   <li><a href="https://www.youtube.com/watch?v=qGllzWt0acU">Video based on simulation of HSL traffic</a></li>
@@ -289,131 +186,22 @@
 </div>
 
 <ul>
-  <li><a href="//dev.hsl.fi/hsl-card-java/HSL-matkakortin-kuvaus.pdf">HSL travel card specification</a> (mostly in Finnish)
-    <ul>
-      <li><a href="https://github.com/hsldevcom/hsl-card-java">Java library SDK</a> in GitHub (<a href="//dev.hsl.fi/hsl-card-java/hsl-card-library-javadoc">Javadoc</a>; initial release: <a href="//dev.hsl.fi/hsl-card-java/hsl-card-library.zip">source code archive</a>,
+  <li><a href="//dev.hsl.fi/hsl-card-java/HSL-matkakortin-kuvaus.pdf">HSL travel card specification</a> (mostly in Finnish)</li>
+  <li><a href="https://github.com/hsldevcom/hsl-card-java">Java library SDK</a> in GitHub (<a href="//dev.hsl.fi/hsl-card-java/hsl-card-library-javadoc">Javadoc</a>; initial release: <a href="//dev.hsl.fi/hsl-card-java/hsl-card-library.zip">source code archive</a>,
         <a href="//dev.hsl.fi/hsl-card-java/hsl-card-library-javadoc.zip">Javadoc archive</a>)</li>
-    </ul>
-  </li>
-  <li>Android app: <a href="https://play.google.com/store/apps/details?id=com.andler.matkakortti&hl=en">Matkakortti reader</a> (<a href="https://github.com/landler/farebot">source code in GitHub</a>)</li>
-  <li>Android app: <a href="https://play.google.com/store/apps/details?id=com.salomaa.travelcardreader.free&hl=en">Travel card reader free</a> (<a href="https://github.com/miikkajs/farebot.git">source code in GitHub</a>)</li>
-  <li>Android app: <a href="https://codebutler.github.io/farebot/">Farebot</a> (<a href="https://github.com/codebutler/farebot">source code in GitHub</a>)</li>
-  <li>Windows Phone app: <a href="http://www.windowsphone.com/en-us/store/app/hsl-matkakorttilukija/ef4286dd-49a5-45d6-9247-f804255e5004">HSL Matkakorttilukija</a></li>
 </ul>
-
-
-
-<h2 id="projects">Collaborative development projects</h2>
-
-<ul>
-  <li><a href="https://github.com/HSLdevcom/hsl-navigator">HSL Navigator</a> (wiki, issue tracker)</li>
-  <li><a href="https://github.com/HSLdevcom/navigator-proto">Navigator Proto</a> (source code)
-    <!-- FIXME: Broken ATM
-      <a href="http://travis-ci.org/HSLdevcom/navigator-proto">
-      <img src="https://secure.travis-ci.org/HSLdevcom/navigator-proto.png" style="vertical-align: text-bottom" />
-      </a>
-    -->
-  </li>
-  <li><a href="https://github.com/HSLdevcom/navigator-server">Navigator Proto real-time server component</a> (source code)</li>
-  <li><a href="https://github.com/HSLdevcom/hsl-visualisation">HSL Visualisation</a> (examples and code)</li>
-  <li><a href="https://github.com/HSLdevcom/kalkati2gtfs">Kalkati to GTFS converter</a> (source code)</li>
-  <li><a href="https://github.com/HSLdevcom/localroute">LocalRoute.js</a> (source code)</li>
-</ul>
-
 
 
 <h2 id="resources">Resources</h2>
-
-<table border=1>
-  <caption>Summary</caption>
-  <tr>
-    <td>
-      <th>Open data
-        <th>Open API
-  </tr>
-  <tr>
-    <td>Routes and timetables</td>
-    <td>JORE, GTFS, Kalkati</td>
-    <td>Old Reittiopas, New Digitransit<br>(OpenTripPlanner REST & GraphQL)</td>
-  </tr>
-  <tr>
-    <td>Service changes</td>
-    <td>
-      <td>Poikkeusinfo, HSL News</td>
-      <tr>
-        <td>Realtime stop predictions</td>
-        <td>
-          <td>Omat lähdöt
-            </>
-      </tr>
-      <tr>
-        <td>Tickets, orders
-          <td>
-            <td>Kutsuplus SMS
-      </tr>
-      <tr>
-        <td>Realtime positions</td>
-        <td>
-          <td>MQTT, HSL Live,<br>navigator-server (SIRI & REST)</td>
-      </tr>
-      <tr>
-        <td>Observed stop times</td>
-        <td>LINFO</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>Vehicles</td>
-        <td>Wifi MAC addresses</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td>Coordinates</td>
-        <td>Kutsuplus stops, POI database</td>
-        <td>Pelias geocoder</td>
-      </tr>
-</table>
-
-
-
 <ul>
-    <!-- <li>Old Realtime API of vehicle locations (HSL Live)</li>
-    <ul>
-      <li><a href="tmp/hsllive.txt.bz2">Example dump</a> (867 MB, 88.7 million observations)</li>
-    </ul> -->
-
-  <li>New resources</li>
+  <!-- <a href="https://github.com/HSLdevcom/navigator-proto/blob/master/src/routing.coffee#L40"><code>interpret_jore</code></a> --> 
+  <li><a href="infopoiminta/">JORE "infopoiminta"</a> (Complete, non-standard schedule exports)</li>
   <ul>
-    <!-- <a href="https://github.com/HSLdevcom/navigator-proto/blob/master/src/routing.coffee#L40"><code>interpret_jore</code></a> --> 
-    <li><a href="tmp/Raitiovaunujen_tietoliikennelaitteet_2014-01-20.csv">Vehicle Wifi MAC addresses</a></li>
-    <li><a href="infopoiminta/">JORE "infopoiminta"</a> (Complete, non-standard schedule exports)</li>
-    <ul>
-      <li><a href="doc/LIJ_infodoc2_4_lyhennetty_2.rtf">Documentation</a>
-    </ul>
-    <li><a href="tmp/linfo/">LINFO</a> (Stop time observations)</li>
-    <ul>
-      <li><a href="tmp/visudata/hastus/hastusgps20130114-20130120.zip">Example dump after processing</a> (<a href="tmp/visudata/hastus/hastus_kuvaus.txt">documentation</a>)</li>
-    </ul>
-    <li><a href="tmp/poi.zip">POI database from Reittiopas</a> (<a href="tmp/poi.info.txt">documentation</a>)</li>
-    <li><a href="https://www.dropbox.com/s/iey5z5st8knzf8g/HSLNewsApi.rtf">HSL News API</a></li>
-    <li><a href="https://dl.dropboxusercontent.com/u/20567085/Asiakastyytyv%C3%A4isyys/Astydata%202011_31.8.2013.xlsx">Customer satisfaction survey</a> (<a href="https://www.dropbox.com/s/pvpvcv2s5yw1zr7/DataMap_HSL_12082013.xlsx">Data map</a>)</li>
-    <li>Statistics year 2012: <a href="tmp/visudata/tilastot/Tietopaketti 2012.xls">General</a>, <a href="tmp/visudata/tilastot/HSL_matkustajamäärätilasto_kuukausittain.XLS">Passenger counts</a>, <a href="tmp/visudata/tilastot/Data_syksy_2012.xlsx">Customer satisfaction survey</a></li>
+    <li><a href="doc/LIJ_infodoc2_4_lyhennetty_2.rtf">Documentation</a>
   </ul>
-
-  <li>OpenTripPlanner</li>
-  <ul>
-    <li><a href="http://www.opentripplanner.org/apidoc/">API</a> endpoints: <a href="opentripplanner-api-webapp/ws/metadata">Helsinki</a>, <a href="http://dev.hsl.fi/manchester/opentripplanner-api-webapp/ws/metadata">Manchester</a>, <a href="http://dev.hsl.fi/tampere/opentripplanner-api-webapp/ws/metadata">Tampere</a></li>
-  </ul>
-  <li>Presentations</li>
-  <ul>
-    <li><a href="https://speakerdeck.com/tuukka">Presentations at Tuukka's Speakerdeck profile</a> (in English as well as in Finnish)</li>
-    <li>2013-06-15: <a href="tmp/Navigator-2013-06-15.pdf">HSL Navigator presentation</a></li>
-    <ul>
-      <li><a href="http://www.plantuml.com/plantuml/svg/VLLDZzem4BtdLunoWWD8gzuuL5gnAekMhsveUq0vU9CXSHVirEEWech_U-qaW8EJlI3yvddcpPUZkJuWFAeavneJNIe4kGUT8mXsuXdJKa6Xf9RwN60G52nvPnb2kC0CHHh2FmVRr7yi2B2RocCX1GeTmsZq5NPFJBCtHXZ3f2GaICqPzaeU3NamXBdGgFOimU0Z2DA62-7bbdNwOKsxcPIPaRna1S4CPI9JLB6ZObsWW4YMAa4WL2UU83MIjlnGOwWeji0rnr6DLk3DgJbORrl5Yys12T5WlnZBOChrENfwgO0mfyD8oL9paOr_KrY1AtdaWcb-Z2lPhTXrHQplI2j4RP8nARGTmtXiEBFjjoWEF1crWyReXNUjWIEaC-pE_7ulaVIjcZtoxkpFU20ktZb4TPNXMBdhOpscgK8YK9Xnqkhi9zofhZlpmJfQ0lvDiD1S2XhsLw63wK7T-LudQdNTX1_pPf8iexxbpTJDPCEif4O7htfg0trvUBXdtoSwiIUWd1L8blfgSaFuKwBYI3sNEdXLoCu9NSY4sGeO-Smy09UnSSVVerJU_8dfvpfhqCln5gf7MUVc6_fcFMypFOSUextaRxQ1LKIgj_NMkgREBWCcHWAWKb9HSErcqzisSShDPW0dCkLodxNMhDLlcskzH6yiZkb-ThsxNLlPJxfVIbzAdPs7syVbeiuPOkz1XSbFp7bYsbP8ufLcSy6dsTlcAn0-HmjOy1E6dv6MJ2IvcJzK_LpR3SiTHFFN-V1JYir5wV0_">Navigator architecture diagram</a>        (<a href="http://www.plantuml.com/plantuml/img/VLLDZzem4BtdLunoWWD8gzuuL5gnAekMhsveUq0vU9CXSHVirEEWech_U-qaW8EJlI3yvddcpPUZkJuWFAeavneJNIe4kGUT8mXsuXdJKa6Xf9RwN60G52nvPnb2kC0CHHh2FmVRr7yi2B2RocCX1GeTmsZq5NPFJBCtHXZ3f2GaICqPzaeU3NamXBdGgFOimU0Z2DA62-7bbdNwOKsxcPIPaRna1S4CPI9JLB6ZObsWW4YMAa4WL2UU83MIjlnGOwWeji0rnr6DLk3DgJbORrl5Yys12T5WlnZBOChrENfwgO0mfyD8oL9paOr_KrY1AtdaWcb-Z2lPhTXrHQplI2j4RP8nARGTmtXiEBFjjoWEF1crWyReXNUjWIEaC-pE_7ulaVIjcZtoxkpFU20ktZb4TPNXMBdhOpscgK8YK9Xnqkhi9zofhZlpmJfQ0lvDiD1S2XhsLw63wK7T-LudQdNTX1_pPf8iexxbpTJDPCEif4O7htfg0trvUBXdtoSwiIUWd1L8blfgSaFuKwBYI3sNEdXLoCu9NSY4sGeO-Smy09UnSSVVerJU_8dfvpfhqCln5gf7MUVc6_fcFMypFOSUextaRxQ1LKIgj_NMkgREBWCcHWAWKb9HSErcqzisSShDPW0dCkLodxNMhDLlcskzH6yiZkb-ThsxNLlPJxfVIbzAdPs7syVbeiuPOkz1XSbFp7bYsbP8ufLcSy6dsTlcAn0-HmjOy1E6dv6MJ2IvcJzK_LpR3SiTHFFN-V1JYir5wV0_">PNG</a>)</li>
-    </ul>
-    <li>2013-04-09: <a href="tmp/Navigaattori-2013-04-09-Tampere.pdf">HSL Navigator presentation</a> (in Finnish) and <a href="http://dev.hsl.fi/tampere/">Tampere City Navigator proto demo</a> at <a href="http://www.hermia.fi/its-factory/?x1156755=1374388">the Open Transport Data event</a>      (in Finnish) at <a href="http://www.hermia.fi/its-factory/in_english/">ITS Factory</a></li>
-  </ul>
+  <li><a href="tmp/poi.zip">POI database from Reittiopas</a> (<a href="tmp/poi.info.txt">documentation</a>)</li>
+  <li><a href="https://www.dropbox.com/s/iey5z5st8knzf8g/HSLNewsApi.rtf">HSL News API</a></li>
 </ul>
-
 
 <h2 id="related">Related sites</h2>
 
@@ -426,7 +214,7 @@
 </ul>
 
 
-<h2 id="past">Past community activities</h2>
+<!--<h2 id="past">Past community activities</h2>
 
 <ul>
   <li><a href="http://mydata2016.org/">MyData 2016 conference</a> and <a href="http://mydata2016.org/ultrahack">hackathon</a> in Helsinki on Aug 31-Sep 2.</li>
@@ -461,6 +249,28 @@
   <li><a href="http://apps4finland.fi/en/">Apps4Finland</a> in 2009, 2010, 2011 and 2012</li>
   <li><a href="http://hslmobiilikisa.blogspot.fi/p/call-for-entries.html">HSL Mobile Competition</a> (in Finnish) in 2011</li>
   <li><a href="http://developer.reittiopas.fi">Developer portal and API</a> open since 2009</li>
+</ul>-->
+
+<h2 id="archive">Archive</h2> 
+
+<ul>
+  <li><a href="http://dev.hsl.fi/doc/HSL-JP-FunctionalSpecification.pdf">Functional Specification of the old HSL Journey Planner</a></li>
+  <li><a href="tmp/hsllive.txt.bz2">Example dump of vehicle locations from the old HSL Live API</a> (867 MB, 88.7 million observations)</li>
+  <li><a href="tmp/Raitiovaunujen_tietoliikennelaitteet_2014-01-20.csv">Vehicle Wifi MAC addresses</a></li>
+  <li><a href="tmp/linfo/">LINFO</a> (Stop time observations)</li>
+    <ul>
+      <li><a href="tmp/visudata/hastus/hastusgps20130114-20130120.zip">Example dump after processing</a> (<a href="tmp/visudata/hastus/hastus_kuvaus.txt">documentation</a>)</li>
+    </ul>
+  <li>Presentations:</li>
+  <ul>
+    <li><a href="https://speakerdeck.com/tuukka">Presentations at Tuukka's Speakerdeck profile</a> (in English as well as in Finnish)</li>
+    <li>2013-06-15: <a href="tmp/Navigator-2013-06-15.pdf">HSL Navigator presentation</a></li>
+    <ul>
+      <li><a href="http://www.plantuml.com/plantuml/svg/VLLDZzem4BtdLunoWWD8gzuuL5gnAekMhsveUq0vU9CXSHVirEEWech_U-qaW8EJlI3yvddcpPUZkJuWFAeavneJNIe4kGUT8mXsuXdJKa6Xf9RwN60G52nvPnb2kC0CHHh2FmVRr7yi2B2RocCX1GeTmsZq5NPFJBCtHXZ3f2GaICqPzaeU3NamXBdGgFOimU0Z2DA62-7bbdNwOKsxcPIPaRna1S4CPI9JLB6ZObsWW4YMAa4WL2UU83MIjlnGOwWeji0rnr6DLk3DgJbORrl5Yys12T5WlnZBOChrENfwgO0mfyD8oL9paOr_KrY1AtdaWcb-Z2lPhTXrHQplI2j4RP8nARGTmtXiEBFjjoWEF1crWyReXNUjWIEaC-pE_7ulaVIjcZtoxkpFU20ktZb4TPNXMBdhOpscgK8YK9Xnqkhi9zofhZlpmJfQ0lvDiD1S2XhsLw63wK7T-LudQdNTX1_pPf8iexxbpTJDPCEif4O7htfg0trvUBXdtoSwiIUWd1L8blfgSaFuKwBYI3sNEdXLoCu9NSY4sGeO-Smy09UnSSVVerJU_8dfvpfhqCln5gf7MUVc6_fcFMypFOSUextaRxQ1LKIgj_NMkgREBWCcHWAWKb9HSErcqzisSShDPW0dCkLodxNMhDLlcskzH6yiZkb-ThsxNLlPJxfVIbzAdPs7syVbeiuPOkz1XSbFp7bYsbP8ufLcSy6dsTlcAn0-HmjOy1E6dv6MJ2IvcJzK_LpR3SiTHFFN-V1JYir5wV0_">Navigator architecture diagram</a>        (<a href="http://www.plantuml.com/plantuml/img/VLLDZzem4BtdLunoWWD8gzuuL5gnAekMhsveUq0vU9CXSHVirEEWech_U-qaW8EJlI3yvddcpPUZkJuWFAeavneJNIe4kGUT8mXsuXdJKa6Xf9RwN60G52nvPnb2kC0CHHh2FmVRr7yi2B2RocCX1GeTmsZq5NPFJBCtHXZ3f2GaICqPzaeU3NamXBdGgFOimU0Z2DA62-7bbdNwOKsxcPIPaRna1S4CPI9JLB6ZObsWW4YMAa4WL2UU83MIjlnGOwWeji0rnr6DLk3DgJbORrl5Yys12T5WlnZBOChrENfwgO0mfyD8oL9paOr_KrY1AtdaWcb-Z2lPhTXrHQplI2j4RP8nARGTmtXiEBFjjoWEF1crWyReXNUjWIEaC-pE_7ulaVIjcZtoxkpFU20ktZb4TPNXMBdhOpscgK8YK9Xnqkhi9zofhZlpmJfQ0lvDiD1S2XhsLw63wK7T-LudQdNTX1_pPf8iexxbpTJDPCEif4O7htfg0trvUBXdtoSwiIUWd1L8blfgSaFuKwBYI3sNEdXLoCu9NSY4sGeO-Smy09UnSSVVerJU_8dfvpfhqCln5gf7MUVc6_fcFMypFOSUextaRxQ1LKIgj_NMkgREBWCcHWAWKb9HSErcqzisSShDPW0dCkLodxNMhDLlcskzH6yiZkb-ThsxNLlPJxfVIbzAdPs7syVbeiuPOkz1XSbFp7bYsbP8ufLcSy6dsTlcAn0-HmjOy1E6dv6MJ2IvcJzK_LpR3SiTHFFN-V1JYir5wV0_">PNG</a>)</li>
+    </ul>
+    <li>2013-04-09: <a href="tmp/Navigaattori-2013-04-09-Tampere.pdf">HSL Navigator presentation</a> (in Finnish) and <a href="http://dev.hsl.fi/tampere/">Tampere City Navigator proto demo</a> at <a href="http://www.hermia.fi/its-factory/?x1156755=1374388">the Open Transport Data event</a>      (in Finnish) at <a href="http://www.hermia.fi/its-factory/in_english/">ITS Factory</a></li>
+  </ul>
+  <li>Statistics year 2012: <a href="tmp/visudata/tilastot/Tietopaketti 2012.xls">General</a>, <a href="tmp/visudata/tilastot/HSL_matkustajamäärätilasto_kuukausittain.XLS">Passenger counts</a>, <a href="tmp/visudata/tilastot/Data_syksy_2012.xlsx">Customer satisfaction survey</a></li>
 </ul>
 
 </body>
