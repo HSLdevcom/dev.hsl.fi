@@ -7,4 +7,12 @@ module.exports = {
       secondary: `#BEE4F8`,
     },
   },
+  plugins: [
+    {
+      resolve: `gatsby-plugin-typography`,
+      options: {
+        pathToConfigModule: `src/utils/typography`,
+      },
+    }
+  ],
 }
