@@ -21,6 +21,7 @@
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
     "react-helmet": "^5.2.0",
+    "react-twitter-widgets": "^1.7.1",
     "react-typography": "^0.16.18",
     "typography": "^0.16.18"
   }
