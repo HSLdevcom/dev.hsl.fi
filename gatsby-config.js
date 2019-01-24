@@ -3,6 +3,7 @@ const path = require(`path`)
 module.exports = {
   siteMetadata: {
     title: `HSL Developer Community`,
+    keywords: [`HSL`, `developer`, `open data`],
     colors: {
       //https://www.hsl.fi/tyyliopas/varit
       primary: `#007AC9`,
