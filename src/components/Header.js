@@ -33,9 +33,11 @@ export default () => (
    } render={data => (
        <div style={{ margin: `0 auto` }}>
          <header style={{marginBottom: rhythm(2/3), padding: rhythm(1), display: `flex`, justifyContent: `center`, alignItems: `center`, background: data.site.siteMetadata.colors.primary }}>   
-           <Img fixed={data.file.childImageSharp.fixed} alt="HSL logo" critical={true} fadeIn={false} style={{marginRight: rhythm(1)}} />  
+           <a href="https://www.hsl.fi/en">
+              <Img fixed={data.file.childImageSharp.fixed} alt="HSL logo" critical={true} fadeIn={false} style={{marginRight: rhythm(1)}} />
+           </a>  
            <Link to="/" style={{ textShadow: `none`, backgroundImage: `none`, marginRight: `auto` }}>    
-             <h3 style={{ display: `inline`, color: `white` }}>{ data.site.siteMetadata.title }</h3>      
+              <h3 style={{ display: `inline`, color: `white` }}>{ data.site.siteMetadata.title }</h3>      
            </Link>
            <nav style={{ display: `inline-block` }}>
              <NavLink to="/projects/">Projects</NavLink>
