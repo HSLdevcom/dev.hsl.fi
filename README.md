@@ -9,4 +9,4 @@ The site is built with [Gatsby](https://www.gatsbyjs.org/) static site generator
 1. Install Gatsby command-line tools with: `yarn global add gatsby-cli`
 2. Install dependencies with: `yarn`
 3. Run development version with: `gatsby develop`
-   * or build production version with `gatsby build`
+   - or build production version with `gatsby build`
