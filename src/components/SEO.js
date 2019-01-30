@@ -20,13 +20,17 @@ const SEO = ({ pageTitle, pageDescription, pageKeywords }) => (
                 <Helmet>
                     <title>{ title }</title>
 
-                    { keywords && <meta property="keywords" content={ keywords }></meta> }
+                    { pageDescription && <meta name="description" content={ pageDescription }></meta> }
+
+                    { keywords && <meta name="keywords" content={ keywords }></meta> }
                     
                     {/* OpenGraph tags http://ogp.me/ */}
                     <meta property="og:title" content={ title }></meta>
+                    { pageDescription && <meta property="og:description" content={ pageDescription }></meta>}
 
                     {/* Twitter tags https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/markup.html */}
                     <meta property="twitter:title" content={ title }></meta>
+                    { pageDescription && <meta property="twitter:description" content={ pageDescription }></meta>}
                 </Helmet>
             )
         }}></StaticQuery>

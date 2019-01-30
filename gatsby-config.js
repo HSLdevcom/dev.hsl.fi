@@ -7,7 +7,8 @@ module.exports = {
     colors: {
       //https://www.hsl.fi/tyyliopas/varit
       primary: `#007AC9`,
-      secondary: `#BEE4F8`,
+      secondary: `#00B9E4`,
+      background: `#BEE4F8`,
     },
   },
   plugins: [

@@ -19,6 +19,7 @@ export default ({children}) => (
           colors {
             primary
             secondary
+            background
           }
         }
       }
@@ -26,7 +27,7 @@ export default ({children}) => (
  } render={ data => (
     <>
       <Helmet>
-        <style>{ `html { background-color: ${data.site.siteMetadata.colors.secondary}}` }</style>
+        <style>{ `html { background-color: ${data.site.siteMetadata.colors.background}}` }</style>
       </Helmet>
       <Header/>
       <SEO/>
