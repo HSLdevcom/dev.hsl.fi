@@ -8,7 +8,11 @@ export default ({ data }) => {
   const post = data.markdownRemark;
   return (
     <>
-      <SEO pageTitle={post.frontmatter.title} pageDescription={post.excerpt} />
+      <SEO
+        pageTitle={post.frontmatter.title}
+        pageDescription={post.excerpt}
+        pagePath={post.fields.slug}
+      />
       <Layout>
         <Content>
           <h1>{post.frontmatter.title}</h1>
@@ -22,6 +26,9 @@ export default ({ data }) => {
 export const query = graphql`
   query($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
+      fields {
+        slug
+      }
       html
       frontmatter {
         title
