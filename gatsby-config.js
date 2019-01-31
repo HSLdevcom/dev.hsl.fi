@@ -2,6 +2,7 @@ const path = require(`path`);
 
 module.exports = {
   siteMetadata: {
+    siteUrl: `https://dev.hsl.fi`,
     title: `HSL Developer Community`,
     keywords: [""],
     colors: {
