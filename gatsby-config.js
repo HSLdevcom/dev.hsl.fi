@@ -10,6 +10,11 @@ module.exports = {
       primary: `#007AC9`,
       secondary: `#00B9E4`,
       background: `#BEE4F8`
+    },
+    socialMedia: {
+      facebook: "HSLdevcom",
+      twitter: "@HSLdevcom",
+      github: "HSLdevcom"
     }
   },
   plugins: [
