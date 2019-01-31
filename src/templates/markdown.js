@@ -4,14 +4,14 @@ import Layout from "../components/Layout";
 import SEO from "../components/SEO";
 import Content from "../components/Content";
 
-export default ({ data }) => {
+export default ({ data, pageContext }) => {
   const post = data.markdownRemark;
   return (
     <>
       <SEO
         pageTitle={post.frontmatter.title}
         pageDescription={post.excerpt}
-        pagePath={post.fields.slug}
+        pagePath={pageContext.slug}
       />
       <Layout>
         <Content>
@@ -26,9 +26,6 @@ export default ({ data }) => {
 export const query = graphql`
   query($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
-      fields {
-        slug
-      }
       html
       frontmatter {
         title
