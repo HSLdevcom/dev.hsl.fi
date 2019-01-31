@@ -18,7 +18,10 @@ const SEO = ({ pageTitle, pageDescription, pageKeywords }) => (
       const title = pageTitle
         ? `${pageTitle} | ${metadata.title}`
         : metadata.title;
-      const keywords = [...(metadata.keywords || []), ...(pageKeywords || [])];
+      const keywords = [
+        ...(metadata.keywords || []),
+        ...(pageKeywords || [])
+      ].filter(kw => !!kw);
 
       return (
         <Helmet>
@@ -28,7 +31,7 @@ const SEO = ({ pageTitle, pageDescription, pageKeywords }) => (
             <meta name="description" content={pageDescription} />
           )}
 
-          {keywords && <meta name="keywords" content={keywords} />}
+          {keywords.length > 0 && <meta name="keywords" content={keywords} />}
 
           {/* OpenGraph tags http://ogp.me/ */}
           <meta property="og:title" content={title} />
