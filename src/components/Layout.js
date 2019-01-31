@@ -34,7 +34,6 @@ export default ({ children }) => (
           }}`}</style>
         </Helmet>
         <Header />
-        <SEO />
         <div
           style={{
             margin: `0 auto`,
