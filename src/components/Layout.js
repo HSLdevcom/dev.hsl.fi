@@ -3,7 +3,6 @@ import React from "react";
 import { Helmet } from "react-helmet";
 
 import Header from "./Header";
-import SEO from "./SEO";
 
 import typography from "../utils/typography";
 import { StaticQuery, graphql } from "gatsby";
