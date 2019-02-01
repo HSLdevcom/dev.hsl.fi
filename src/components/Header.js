@@ -69,10 +69,11 @@ export default () => (
               flexGrow: "1",
               textShadow: `none`,
               backgroundImage: `none`,
-              marginRight: rhythm(1)
+              marginRight: rhythm(1),
+              color: `white`
             }}
           >
-            <h3 style={{ display: `inline`, color: `white` }}>
+            <h3 style={{ display: `inline` }}>
               {data.site.siteMetadata.title}
             </h3>
           </Link>
