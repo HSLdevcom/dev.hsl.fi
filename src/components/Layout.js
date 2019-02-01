@@ -10,7 +10,7 @@ import { StaticQuery, graphql } from "gatsby";
 
 const { rhythm } = typography;
 
-export default ({ children }) => (
+export default ({ title, children }) => (
   <StaticQuery
     query={graphql`
       query {
@@ -36,11 +36,22 @@ export default ({ children }) => (
         <Header />
         <div
           style={{
-            margin: `0 auto`,
+            margin: `0 auto ${rhythm(1)}`,
             maxWidth: 1000,
             padding: `0 ${rhythm(1)}`
           }}
         >
+          {title && (
+            <h1
+              style={{
+                marginTop: rhythm(1),
+                fontStyle: "italic",
+                color: data.site.siteMetadata.colors.primary
+              }}
+            >
+              {title}
+            </h1>
+          )}
           {children}
         </div>
       </>
