@@ -5,6 +5,7 @@ module.exports = {
     siteUrl: `https://dev.hsl.fi`,
     title: `HSL Developer Community`,
     keywords: [""],
+    shareImage: "/hsl_logo_share.png",
     colors: {
       //https://www.hsl.fi/tyyliopas/varit
       primary: `#007AC9`,
