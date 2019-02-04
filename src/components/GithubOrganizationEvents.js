@@ -124,8 +124,6 @@ class GithubOrganizationEvents extends React.Component {
       return <span>{this.state.error}</span>;
     }
 
-    console.log(this.state.events);
-
     return (
       <ul
         style={{
@@ -165,7 +163,6 @@ class GithubOrganizationEvents extends React.Component {
           }
 
           if (component) {
-            console.log(event.actor);
             return (
               <Event avatarUrl={event.actor.avatar_url} date={event.created_at}>
                 {component}
