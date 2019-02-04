@@ -27,7 +27,7 @@ export default () => (
         file(name: { eq: "hsl_logo" }) {
           childImageSharp {
             fixed(width: 295) {
-              ...GatsbyImageSharpFixed
+              ...GatsbyImageSharpFixed_noBase64
             }
           }
         }
