@@ -87,6 +87,7 @@ const Event = ({ avatarUrl, date, children }) => (
   <li>
     <img
       src={getGithubAvatarWithSize(avatarUrl, "36")}
+      alt=""
       style={{
         width: "36px",
         height: "36px",
