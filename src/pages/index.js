@@ -3,6 +3,7 @@ import React from "react";
 import Layout from "../components/Layout";
 import SEO from "../components/SEO";
 import Content from "../components/Content";
+import SocialFeeds from "../components/SocialFeeds";
 
 export default props => (
   <>
@@ -21,6 +22,7 @@ export default props => (
         (Helsinki, Vantaa, Espoo, Kauniainen, Kirkkonummi, Kerava, Sipoo,
         Siuntio and Tuusula).
       </Content>
+      <SocialFeeds />
     </Layout>
   </>
 );
