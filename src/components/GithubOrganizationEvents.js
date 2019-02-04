@@ -1,26 +1,29 @@
-import React from 'react'
+import React from "react";
 
-import moment from 'moment'
+import moment from "moment";
 
-import { organizationEvents } from '../utils/githubEvents'
+import { organizationEvents } from "../utils/githubEvents";
 
-import pluralize from '../utils/pluralize'
+import pluralize from "../utils/pluralize";
 
-import typography from '../utils/typography'
+import typography from "../utils/typography";
 
 const { rhythm, adjustFontSizeTo } = typography;
 
-const getGithubURL = path => "https://github.com/" + path
+const getGithubURL = path => "https://github.com/" + path;
 
-const getGithubAvatarWithSize = (avatarUrl, size) => avatarUrl.includes("?") ? 
-    (avatarUrl.endsWith("?") ? avatarUrl + "s="+ size : avatarUrl + "&s=" + size) : 
-    avatarUrl + "?s=" + size
+const getGithubAvatarWithSize = (avatarUrl, size) =>
+  avatarUrl.includes("?")
+    ? avatarUrl.endsWith("?")
+      ? avatarUrl + "s=" + size
+      : avatarUrl + "&s=" + size
+    : avatarUrl + "?s=" + size;
 
-const GithubUserLink = ({login}) => (
-    <a href={getGithubURL(login)} style={{ fontWeight: "bold"}}>
-        {login}
-    </a>
-)
+const GithubUserLink = ({ login }) => (
+  <a href={getGithubURL(login)} style={{ fontWeight: "bold" }}>
+    {login}
+  </a>
+);
 
 const GithubRepoLink = ({ repoName }) => (
   <a href={getGithubURL(repoName)} style={{ fontWeight: "bold" }}>
@@ -42,7 +45,8 @@ const PushEvent = ({ event }) => (
 
 const CreateEvent = ({ event }) => (
   <>
-    <GithubUserLink login={event.actor.login} /> created repository <GithubRepoLink repoName={event.repo.name} />
+    <GithubUserLink login={event.actor.login} /> created repository{" "}
+    <GithubRepoLink repoName={event.repo.name} />
   </>
 );
 
@@ -69,7 +73,7 @@ const ReleaseEvent = ({ event }) => (
   </>
 );
 
-const IssueEvent = ({ event }) => (
+const IssuesEvent = ({ event }) => (
   <>
     <GithubUserLink login={event.actor.login} /> opened issue{" "}
     <a href={event.payload.issue.html_url} style={{ fontWeight: "bold" }}>
@@ -80,79 +84,123 @@ const IssueEvent = ({ event }) => (
 );
 
 const Event = ({ avatarUrl, date, children }) => (
-    <li>
-        <img src={ getGithubAvatarWithSize(avatarUrl, '36') } style={{ width: '36px', height: '36px', float: 'left', marginRight: '8px', marginBottom: '4px', marginTop: '8px' }}></img>
-        { children }
-        <br />
-        <FormattedDate date={ date }/>
-    </li>
+  <li>
+    <img
+      src={getGithubAvatarWithSize(avatarUrl, "36")}
+      style={{
+        width: "36px",
+        height: "36px",
+        float: "left",
+        marginRight: "8px",
+        marginBottom: "4px",
+        marginTop: "8px"
+      }}
+    />
+    {children}
+    <br />
+    <FormattedDate date={date} />
+  </li>
 );
 
 class GithubOrganizationEvents extends React.Component {
-    constructor(props) {
-        super(props)
+  constructor(props) {
+    super(props);
 
-        this.state = {events: undefined, error: undefined}
+    this.state = { events: undefined, error: undefined };
+  }
+
+  componentDidMount() {
+    organizationEvents(this.props.organization)
+      .then(events => this.setState({ events }))
+      .catch(error => this.setState({ error }));
+  }
+
+  render() {
+    if (!this.state.events && !this.state.error) {
+      return <span>{"Loading..."}</span>;
     }
 
-    componentDidMount() {
-        organizationEvents(this.props.organization)
-            .then(events => this.setState({ events }))
-            .catch(error => this.setState({ error }))
+    if (this.state.error) {
+      return <span>{this.state.error}</span>;
     }
 
-    render() {
-        if (!this.state.events && !this.state.error) {
-            return (<span>{ "Loading..." }</span>)
-        }
+    console.log(this.state.events);
 
-        if (this.state.error) {
-            return (<span>{ this.state.error }</span>)
-        }
+    return (
+      <ul
+        style={{
+          display: "block",
+          flex: "0 1 auto",
+          margin: "0",
+          padding: `${rhythm(1 / 5)} 0 0 ${rhythm(4 / 10)}`,
+          maxHeight: "100%",
+          overflow: "hidden",
+          overflowY: "auto",
+          listStyle: "none",
+          ...adjustFontSizeTo("14px")
+        }}
+      >
+        {this.state.events.map(event => {
+          let component;
 
-        console.log(this.state.events)
+          if (event.type === "PushEvent") {
+            component = <PushEvent event={event} />;
+          } else if (
+            event.type === "CreateEvent" &&
+            event.payload.ref_type === "repository"
+          ) {
+            component = <CreateEvent event={event} />;
+          } else if (
+            event.type === "PullRequestEvent" &&
+            event.payload.action === "opened"
+          ) {
+            component = <PullRequestEvent event={event} />;
+          } else if (event.type === "ReleaseEvent") {
+            component = <ReleaseEvent event={event} />;
+          } else if (
+            event.type === "IssuesEvent" &&
+            event.payload.action === "opened"
+          ) {
+            component = <IssuesEvent event={event} />;
+          }
 
-        return (
-        <ul style={{ display: 'block', flex: '0 1 auto', margin: '0', padding: `${rhythm(1 / 5)} 0 0 ${rhythm(4 / 10)}`, maxHeight: '100%', overflow: 'hidden', overflowY: 'auto', listStyle: 'none', ...adjustFontSizeTo('14px') }}>
-            {this.state.events.map(event => {
-                let component
-
-                if (event.type === "PushEvent") {
-                    component = <PushEvent event={event} />
-                } else if (
-                    event.type === "CreateEvent" &&
-                    event.payload.ref_type === "repository"
-                ) {
-                    component = <CreateEvent event={event} />
-                } else if (
-                    event.type === "PullRequestEvent" &&
-                    event.payload.action === "opened"
-                ) {
-                    component = <PullRequestEvent event={event} />
-                } else if (event.type === "ReleaseEvent") {
-                    component = <ReleaseEvent event={event} />
-                } else if (
-                    event.type === "IssueEvent" &&
-                    event.payload.action === "opened"
-                ) {
-                    component = <IssueEvent event={event} />
-                }
-
-                if (component) {
-                    console.log(event.actor)
-                    return <Event avatarUrl={ event.actor.avatar_url } date={ event.created_at }>{ component }</Event>
-                } else {
-                    return null
-                }
-            })}
-        </ul>
-        )
-    }
+          if (component) {
+            console.log(event.actor);
+            return (
+              <Event avatarUrl={event.actor.avatar_url} date={event.created_at}>
+                {component}
+              </Event>
+            );
+          } else {
+            return null;
+          }
+        })}
+      </ul>
+    );
+  }
 }
 
 export default props => (
-    <div style={{ display: 'flex', flexFlow: 'column', background: 'white', border: 'solid thin #e8e8e8', borderRadius: '5px', ...props.style}}>
-        <h3 style={{ marginBottom: '0', padding: rhythm(4 / 10), borderBottom: 'solid thin #e8e8e8', ...adjustFontSizeTo('16px')}}>{ "GitHub" }</h3>
-        <GithubOrganizationEvents {...props} />
-    </div>
-)
+  <div
+    style={{
+      display: "flex",
+      flexFlow: "column",
+      background: "white",
+      border: "solid thin #e8e8e8",
+      borderRadius: "5px",
+      ...props.style
+    }}
+  >
+    <h3
+      style={{
+        marginBottom: "0",
+        padding: rhythm(4 / 10),
+        borderBottom: "solid thin #e8e8e8",
+        ...adjustFontSizeTo("16px")
+      }}
+    >
+      {"GitHub"}
+    </h3>
+    <GithubOrganizationEvents {...props} />
+  </div>
+);
