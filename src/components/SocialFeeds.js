@@ -20,6 +20,11 @@ export default () => (
             colors {
               secondary
             }
+            socialMedia {
+              twitter
+              facebook
+              github
+            }
           }
         }
       }
@@ -30,18 +35,27 @@ export default () => (
       >
         <div style={{ display: `flex`, justifyContent: `space-between` }}>
           <Timeline
-            dataSource={{ sourceType: "profile", screenName: "HSLdevcom" }}
-            options={{ username: "HSLdevcom", height: "500", width: "100%" }}
+            dataSource={{
+              sourceType: "profile",
+              screenName: data.site.siteMetadata.socialMedia.twitter
+            }}
+            options={{
+              username: data.site.siteMetadata.socialMedia.twitter,
+              height: "500",
+              width: "100%"
+            }}
           />
 
           <GithubOrganizationEvents
             style={{ height: "500px", width: "33%" }}
-            organization="HSLdevcom"
+            organization={data.site.siteMetadata.socialMedia.github}
           />
 
           <div style={{ height: "500px", width: "33%" }}>
             <FacebookProvider>
-              <FacebookTimeline page="HSLdevcom" />
+              <FacebookTimeline
+                page={data.site.siteMetadata.socialMedia.facebook}
+              />
             </FacebookProvider>
           </div>
         </div>

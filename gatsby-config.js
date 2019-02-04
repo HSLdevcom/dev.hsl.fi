@@ -14,7 +14,7 @@ module.exports = {
     },
     socialMedia: {
       facebook: "HSLdevcom",
-      twitter: "@HSLdevcom",
+      twitter: "HSLdevcom",
       github: "HSLdevcom"
     }
   },
