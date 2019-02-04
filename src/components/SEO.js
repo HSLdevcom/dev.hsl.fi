@@ -11,6 +11,7 @@ const SEO = ({ pageTitle, pageDescription, pagePath, pageKeywords }) => (
             siteUrl
             title
             keywords
+            shareImage
           }
         }
       }
@@ -21,6 +22,8 @@ const SEO = ({ pageTitle, pageDescription, pagePath, pageKeywords }) => (
         : metadata.title;
 
       const canonicalUrl = metadata.siteUrl + pagePath;
+
+      const shareImageUrl = metadata.siteUrl + metadata.shareImage;
 
       const keywords = [
         ...(metadata.keywords || []),
@@ -46,12 +49,14 @@ const SEO = ({ pageTitle, pageDescription, pagePath, pageKeywords }) => (
             <meta property="og:description" content={pageDescription} />
           )}
           <meta property="og:url" content={canonicalUrl} />
+          <meta property="og:image" content={shareImageUrl} />
 
           {/* Twitter tags https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/markup.html */}
           <meta property="twitter:title" content={title} />
           {pageDescription && (
             <meta property="twitter:description" content={pageDescription} />
           )}
+          <meta property="twitter:image" content={shareImageUrl} />
         </Helmet>
       );
     }}

@@ -10,6 +10,10 @@ const typography = new Typography({
   overrideStyles: ({ adjustFontSizeTo, rhythm }, options, styles) => ({
     "a:link": {
       textDecoration: "none"
+    },
+    "a:link:hover": {
+      textDecoration: "underline",
+      textDecorationColor: "inherit"
     }
   })
 });
