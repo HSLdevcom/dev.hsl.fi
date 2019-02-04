@@ -8,6 +8,7 @@ export default props => (
   <>
     <Layout>
       <SEO
+        pageTitle="Contact"
         pageDescription="Contact information for HSL developer community"
         pagePath={props.location.pathname}
       />
