@@ -1,21 +1,58 @@
 import React from "react";
-import { Helmet } from "react-helmet";
 
-export default ({ children }) => (
-  <>
-    <Helmet>
-      <div id="fb-root" />
-      <script>{`
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2';
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
+export default class FacebookProvider extends React.Component {
+  constructor(props) {
+    super(props);
 
-`}</script>
-    </Helmet>
-    {children}
-  </>
-);
+    this.state = { ready: false };
+  }
+
+  componentDidMount() {
+    this.init().then(fb => {
+      this.setState({ ready: true });
+    });
+  }
+
+  componentDidUpdate() {
+    this.parseXFBML();
+  }
+
+  parseXFBML() {
+    if (window.FB) {
+      window.FB.XFBML.parse();
+    }
+  }
+
+  init() {
+    return new Promise(resolve => {
+      if (window.FB) {
+        resolve(window.FB);
+        return;
+      }
+
+      window.fbAsyncInit = () => {
+        window.FB.init({
+          xfbml: true,
+          version: "v3.2"
+        });
+
+        resolve(window.FB);
+      };
+
+      if (window.document.getElementById("facebook-jssdk")) {
+        return;
+      }
+
+      const fjs = window.document.getElementsByTagName("script")[0];
+      const js = window.document.createElement("script");
+      js.id = "facebook-jssdk";
+      js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2";
+
+      fjs.parentNode.insertBefore(js, fjs);
+    });
+  }
+
+  render() {
+    return this.props.children;
+  }
+}
