@@ -164,7 +164,11 @@ class GithubOrganizationEvents extends React.Component {
 
           if (component) {
             return (
-              <Event avatarUrl={event.actor.avatar_url} date={event.created_at}>
+              <Event
+                key={event.id}
+                avatarUrl={event.actor.avatar_url}
+                date={event.created_at}
+              >
                 {component}
               </Event>
             );
