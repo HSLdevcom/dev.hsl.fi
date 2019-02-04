@@ -1,21 +1,51 @@
-import React from "react"
+import React from "react";
 
-import { Timeline } from 'react-twitter-widgets'
+import { Timeline } from "react-twitter-widgets";
 
-import GithubOrganizationEvents from './GithubOrganizationEvents'
+import { FacebookProvider, FacebookTimeline } from "./Facebook";
+import GithubOrganizationEvents from "./GithubOrganizationEvents";
+import Content from "./Content";
 
-import typography from '../utils/typography'
+//import typography from '../utils/typography'
+import { StaticQuery, graphql } from "gatsby";
 
-const { rhythm } = typography;
+//const { rhythm } = typography;
 
 export default () => (
-    <div style={{ marginTop: rhythm(2/3), display: `flex`, justifyContent: `space-between`}}>
-        <Timeline 
-            dataSource={{sourceType: 'profile', screenName: 'HSLdevcom'}} 
-            options={{username: 'HSLdevcom', height: '500', width: '100%'}} />
+  <StaticQuery
+    query={graphql`
+      query {
+        site {
+          siteMetadata {
+            colors {
+              secondary
+            }
+          }
+        }
+      }
+    `}
+    render={data => (
+      <Content
+        style={{ backgroundColor: data.site.siteMetadata.colors.secondary }}
+      >
+        <div style={{ display: `flex`, justifyContent: `space-between` }}>
+          <Timeline
+            dataSource={{ sourceType: "profile", screenName: "HSLdevcom" }}
+            options={{ username: "HSLdevcom", height: "500", width: "100%" }}
+          />
 
-        <GithubOrganizationEvents style={{height: '500px', width: '33%'}} organization="HSLdevcom" />
+          <GithubOrganizationEvents
+            style={{ height: "500px", width: "33%" }}
+            organization="HSLdevcom"
+          />
 
-        <div style={{ background: 'white', height: '500px', width: '33%'}}>{ "Placeholder" }</div>
-    </div>
-)
+          <div style={{ height: "500px", width: "33%" }}>
+            <FacebookProvider>
+              <FacebookTimeline page="HSLdevcom" />
+            </FacebookProvider>
+          </div>
+        </div>
+      </Content>
+    )}
+  />
+);
