@@ -12,6 +12,9 @@ const SEO = ({ pageTitle, pageDescription, pagePath, pageKeywords }) => (
             title
             keywords
             shareImage
+            socialMedia {
+              twitter
+            }
           }
         }
       }
@@ -52,6 +55,11 @@ const SEO = ({ pageTitle, pageDescription, pagePath, pageKeywords }) => (
           <meta property="og:image" content={shareImageUrl} />
 
           {/* Twitter tags https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/markup.html */}
+          <meta property="twitter:card" content="summary" />
+          <meta
+            property="twitter:site"
+            content={"@" + metadata.socialMedia.twitter}
+          />
           <meta property="twitter:title" content={title} />
           {pageDescription && (
             <meta property="twitter:description" content={pageDescription} />
