@@ -21,10 +21,12 @@ export default ({ data, pageContext }) => {
       <Layout>
         <Content>
           <h1>{post.frontmatter.title}</h1>
-          <NonStrechedImage
-            fluid={post.frontmatter.image.childImageSharp.fluid}
-            alt={post.frontmatter.imageAlt || ""}
-          />
+          {post.frontmatter.image && (
+            <NonStrechedImage
+              fluid={post.frontmatter.image.childImageSharp.fluid}
+              alt={post.frontmatter.imageAlt || ""}
+            />
+          )}
           <div
             style={{ marginTop: rhythm(1 / 3) }}
             dangerouslySetInnerHTML={{ __html: post.html }}
