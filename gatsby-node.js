@@ -31,11 +31,21 @@ exports.createPages = ({ graphql, actions }) => {
     result.data.allMarkdownRemark.edges.forEach(({ node }) => {
       createPage({
         path: node.fields.slug,
-        component: path.resolve(`./src/templates/markdown.js`),
+        component: templateComponentForNode(node),
         context: {
           slug: node.fields.slug
         }
       });
     });
   });
+};
+
+const templateComponentForNode = node => {
+  if (node.fields.slug.startsWith("/apis/")) {
+    return path.resolve(`./src/templates/api.js`);
+  } else if (node.fields.slug.startsWith("/projects/")) {
+    return path.resolve(`./src/templates/project.js`);
+  } else {
+    return null;
+  }
 };
