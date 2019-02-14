@@ -85,7 +85,8 @@ export default () => (
               margin: `0 auto`,
               position: `sticky`,
               width: `100%`,
-              top: `0`
+              top: `0`,
+              zIndex: `3`
             }}
           >
             <header
