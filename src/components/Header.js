@@ -55,6 +55,101 @@ const HSLLogo = ({ image }) => (
   </a>
 );
 
+const DesktopHeader = ({ backgroundColor, logo, title }) => {
+  return (
+    <div style={{ margin: `0 auto` }}>
+      <header
+        style={{
+          padding: rhythm(1),
+          display: `flex`,
+          justifyContent: `start`,
+          alignItems: `center`,
+          flexWrap: `wrap`,
+          background: backgroundColor
+        }}
+      >
+        <HSLLogo image={logo} />
+        <Link
+          to="/"
+          style={{
+            flexGrow: "1",
+            textShadow: `none`,
+            backgroundImage: `none`,
+            marginRight: rhythm(1),
+            color: `white`
+          }}
+        >
+          <h3 style={{ display: `inline` }}>{title}</h3>
+        </Link>
+        <nav style={{ display: `inline-block` }}>{navLinks}</nav>
+      </header>
+    </div>
+  );
+};
+
+const MobileHeader = ({ backgroundColor, logo, title }) => {
+  return (
+    <div
+      style={{
+        margin: `0 auto`,
+        position: `sticky`,
+        width: `100%`,
+        top: `0`,
+        zIndex: `3`
+      }}
+    >
+      <header
+        style={{
+          marginBottom: rhythm(1 / 3),
+          padding: rhythm(1 / 2),
+          background: backgroundColor
+        }}
+      >
+        <div
+          style={{
+            display: `flex`,
+            justifyContent: `start`,
+            alignItems: `center`,
+            flexWrap: `wrap`
+          }}
+        >
+          <HSLLogo image={logo} />
+          <Link
+            to="/"
+            style={{
+              flexGrow: "1",
+              textShadow: `none`,
+              backgroundImage: `none`,
+              color: `white`
+            }}
+          >
+            <h3
+              style={{
+                margin: `0`,
+                display: `inline`,
+                ...adjustFontSizeTo("15px")
+              }}
+            >
+              {title}
+            </h3>
+          </Link>
+        </div>
+        <nav
+          style={{
+            display: `flex`,
+            justifyContent: `space-around`,
+            alignItems: `center`,
+            flexWrap: `wrap`,
+            marginTop: rhythm(1 / 3)
+          }}
+        >
+          {navLinks}
+        </nav>
+      </header>
+    </div>
+  );
+};
+
 export default () => (
   <StaticQuery
     query={graphql`
@@ -86,95 +181,18 @@ export default () => (
     render={data => (
       <Responsive
         mobile={
-          <div
-            style={{
-              margin: `0 auto`,
-              position: `sticky`,
-              width: `100%`,
-              top: `0`,
-              zIndex: `3`
-            }}
-          >
-            <header
-              style={{
-                marginBottom: rhythm(1 / 3),
-                padding: rhythm(1 / 2),
-                background: data.site.siteMetadata.colors.primary
-              }}
-            >
-              <div
-                style={{
-                  display: `flex`,
-                  justifyContent: `start`,
-                  alignItems: `center`,
-                  flexWrap: `wrap`
-                }}
-              >
-                <HSLLogo image={data.mobileLogo.childImageSharp.fixed} />
-                <Link
-                  to="/"
-                  style={{
-                    flexGrow: "1",
-                    textShadow: `none`,
-                    backgroundImage: `none`,
-                    color: `white`
-                  }}
-                >
-                  <h3
-                    style={{
-                      margin: `0`,
-                      display: `inline`,
-                      ...adjustFontSizeTo("15px")
-                    }}
-                  >
-                    {data.site.siteMetadata.title}
-                  </h3>
-                </Link>
-              </div>
-              <nav
-                style={{
-                  display: `flex`,
-                  justifyContent: `space-around`,
-                  alignItems: `center`,
-                  flexWrap: `wrap`,
-                  marginTop: rhythm(1 / 3)
-                }}
-              >
-                {navLinks}
-              </nav>
-            </header>
-          </div>
+          <MobileHeader
+            backgroundColor={data.site.siteMetadata.colors.primary}
+            logo={data.mobileLogo.childImageSharp.fixed}
+            title={data.site.siteMetadata.title}
+          />
         }
         desktop={
-          <div style={{ margin: `0 auto` }}>
-            <header
-              style={{
-                padding: rhythm(1),
-                display: `flex`,
-                justifyContent: `start`,
-                alignItems: `center`,
-                flexWrap: `wrap`,
-                background: data.site.siteMetadata.colors.primary
-              }}
-            >
-              <HSLLogo image={data.desktopLogo.childImageSharp.fixed} />
-              <Link
-                to="/"
-                style={{
-                  flexGrow: "1",
-                  textShadow: `none`,
-                  backgroundImage: `none`,
-                  marginRight: rhythm(1),
-                  color: `white`
-                }}
-              >
-                <h3 style={{ display: `inline` }}>
-                  {data.site.siteMetadata.title}
-                </h3>
-              </Link>
-              <nav style={{ display: `inline-block` }}>{navLinks}</nav>
-            </header>
-          </div>
+          <DesktopHeader
+            backgroundColor={data.site.siteMetadata.colors.primary}
+            logo={data.desktopLogo.childImageSharp.fixed}
+            title={data.site.siteMetadata.title}
+          />
         }
       />
     )}
