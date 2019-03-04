@@ -23,9 +23,15 @@ const NavLink = props => (
 );
 
 const navLinks = [
-  <NavLink to="/projects/">Projects</NavLink>,
-  <NavLink to="/apis/">APIs</NavLink>,
-  <NavLink to="/contact/">Contact</NavLink>
+  <NavLink key="/projects/" to="/projects/">
+    Projects
+  </NavLink>,
+  <NavLink key="/apis/" to="/apis/">
+    APIs
+  </NavLink>,
+  <NavLink key="/contact/" to="/contact/">
+    Contact
+  </NavLink>
 ];
 
 const HSLLogo = ({ image }) => (
