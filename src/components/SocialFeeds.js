@@ -21,8 +21,9 @@ const DesktopContainer = ({ children }) => (
 const MobileContainer = ({ children }) => (
   <div
     style={{
-      height: "300px",
+      flex: "0 1 300px",
       width: "100%",
+      maxWidth: "500px",
       overflow: "hidden",
       margin: `${rhythm(1 / 3)} 0`
     }}
@@ -64,7 +65,14 @@ const DesktopSocialFeeds = ({ twitter, github, facebook }) => {
 
 const MobileSocialFeeds = ({ twitter, github, facebook }) => {
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column"
+      }}
+    >
       <MobileContainer>
         <Timeline
           dataSource={{

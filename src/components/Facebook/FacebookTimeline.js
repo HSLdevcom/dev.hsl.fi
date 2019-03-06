@@ -35,13 +35,13 @@ class FacebookTimeline extends React.Component {
         className="fb-page"
         data-href={`https://www.facebook.com/${this.props.page}`}
         data-tabs="timeline"
+        data-width="500"
         data-height={this.props.height}
-        data-width={this.props.width}
         data-small-header="true"
         data-adapt-container-width="true"
         data-hide-cover="false"
         data-show-facepile="false"
-        style={{ width: "100%", height: "100%" }}
+        style={{ maxWidth: "500px", height: "100%", margin: "auto" }}
         ref={this.ref}
       >
         <blockquote
