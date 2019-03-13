@@ -1,5 +1,6 @@
 ---
 title: "HFP"
+order: 2
 documentation:
   - title: "HFP documentation"
     url: "https://digitransit.fi/en/developers/apis/4-realtime-api/vehicle-positions/"

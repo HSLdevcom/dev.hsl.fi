@@ -68,7 +68,10 @@ export default ({ data, ...props }) => {
 
 export const pageQuery = graphql`
   query {
-    allMarkdownRemark(filter: { fields: { slug: { regex: "/projects/" } } }) {
+    allMarkdownRemark(
+      filter: { fields: { slug: { regex: "/projects/" } } }
+      sort: { fields: frontmatter___order, order: ASC }
+    ) {
       edges {
         node {
           fields {

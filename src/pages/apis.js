@@ -31,7 +31,10 @@ export default ({ data, ...props }) => {
 
 export const pageQuery = graphql`
   query {
-    allMarkdownRemark(filter: { fields: { slug: { regex: "/apis/" } } }) {
+    allMarkdownRemark(
+      filter: { fields: { slug: { regex: "/apis/" } } }
+      sort: { fields: frontmatter___order, order: ASC }
+    ) {
       edges {
         node {
           fields {

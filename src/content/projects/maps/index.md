@@ -1,5 +1,6 @@
 ---
 title: "Maps"
+order: 4
 image: "../../../images/driver_instructions_2019-02-11.png"
 imageAlt: "A screenshot of HSL driver instruction application"
 ---
