@@ -3,6 +3,11 @@ title: "HFP"
 documentation:
   - title: "HFP documentation"
     url: "https://digitransit.fi/en/developers/apis/4-realtime-api/vehicle-positions/"
+endpoints:
+  - title: "MQTT"
+    url: "mqtts://mqtt.hsl.fi:8883/"
+  - title: "MQTT-over-WebSocket"
+    url: "wss://mqtt.hsl.fi:443/"
 ---
 
 The open HFP API can be used to subscribe to vehicle movements in soft real time.
