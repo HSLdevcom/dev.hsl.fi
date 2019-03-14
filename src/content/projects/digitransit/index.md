@@ -3,6 +3,9 @@ title: Digitransit
 order: 1
 image: "../../../images/digitransit_ui_2019-02-04.png"
 imageAlt: "A screenshot of digitransit-ui"
+deployments:
+  - title: "Reittiopas"
+    url: "https://reittiopas.hsl.fi/"
 ---
 
 HSL's next-generation journey planner, in cooperation with Finnish Transport Agency's national Journey.fi.
