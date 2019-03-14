@@ -89,7 +89,7 @@ const MobileSocialFeeds = ({ twitter, github, facebook }) => {
 
       <MobileContainer>
         <GithubOrganizationEvents
-          style={{ height: "100%", width: "100%" }}
+          style={{ height: "300px", width: "100%" }}
           organization={github}
         />
       </MobileContainer>
