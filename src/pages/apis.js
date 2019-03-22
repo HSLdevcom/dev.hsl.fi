@@ -43,7 +43,7 @@ export const pageQuery = graphql`
           frontmatter {
             title
           }
-          excerpt(pruneLength: 800, format: HTML)
+          excerpt(pruneLength: 350, format: PLAIN)
         }
       }
     }
