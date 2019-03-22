@@ -8,11 +8,11 @@ deployments:
     url: "https://reittiopas.hsl.fi/"
 ---
 
-HSL's next-generation journey planner, in cooperation with Finnish Transport Agency's national Journey.fi.
+HSL's next-generation journey planner, in cooperation with [Traficom's](https://www.traficom.fi/en) national journey planner [matka.fi](https://www.traficom.fi/fi/asioi-kanssamme/reittiopas).
 
 Digitransit project includes digitransit-ui user interface and back-end services providing APIs for public transportation data, geocoding and maps.
 
-- Developer page
-- GraphQL console, including schema documentation
-- Data container, including GTFS feed
-- Digitransit application - built on HTML5, React, Relay, GraphQL, MQTT (source code)
+- [Developer page](https://digitransit.fi/en/developers/)
+- [GraphQL console](https://api.digitransit.fi/graphiql/hsl), including schema documentation
+- [Data container](https://api.digitransit.fi/routing-data/v2/hsl/), including [GTFS feed](https://api.digitransit.fi/routing-data/v2/hsl/HSL.zip)
+- [Digitransit application](https://www.reittiopas.fi/) - built on HTML5, React, Relay, GraphQL, MQTT _[(source code)](https://github.com/HSLdevcom/digitransit-ui)_
