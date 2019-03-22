@@ -15,10 +15,12 @@ const PageContent = ({ page }) => (
   <>
     <h1>{page.frontmatter.title}</h1>
     {page.frontmatter.image && (
-      <NonStrechedImage
-        fluid={page.frontmatter.image.childImageSharp.fluid}
-        alt={page.frontmatter.imageAlt || ""}
-      />
+      <a href={page.frontmatter.image.publicURL}>
+        <NonStrechedImage
+          fluid={page.frontmatter.image.childImageSharp.fluid}
+          alt={page.frontmatter.imageAlt || ""}
+        />
+      </a>
     )}
     <div
       style={{ marginTop: rhythm(1 / 3) }}
@@ -96,6 +98,7 @@ export const query = graphql`
       frontmatter {
         title
         image {
+          publicURL
           childImageSharp {
             fluid(maxWidth: 1000) {
               ...GatsbyImageSharpFluid
