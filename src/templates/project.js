@@ -39,12 +39,28 @@ const DeploymentList = ({ deployments }) => (
   </ul>
 );
 
+const RepositoryList = ({ repositories }) => (
+  <ul>
+    {repositories.map(repository => (
+      <li key={repository.url}>
+        <a href={repository.url}>{repository.title}</a>
+      </li>
+    ))}
+  </ul>
+);
+
 const SideContent = ({ page }) => (
   <ul style={{ marginBottom: 0 }}>
     {page.frontmatter.deployments && (
       <li>
         <b>Deployments:</b>
         <DeploymentList deployments={page.frontmatter.deployments} />
+      </li>
+    )}
+    {page.frontmatter.repositories && (
+      <li>
+        <b>Repositories:</b>
+        <RepositoryList repositories={page.frontmatter.repositories} />
       </li>
     )}
   </ul>
@@ -66,7 +82,8 @@ export default ({ data, pageContext }) => {
               <Content style={{ flex: "10 0" }}>
                 <PageContent page={page} />
               </Content>
-              {page.frontmatter.deployments && (
+              {(page.frontmatter.deployments ||
+                page.frontmatter.repositories) && (
                 <AsideContent style={{ flex: "1 0 270px" }}>
                   <SideContent page={page} />
                 </AsideContent>
@@ -78,7 +95,8 @@ export default ({ data, pageContext }) => {
               <Content>
                 <PageContent page={page} />
               </Content>
-              {page.frontmatter.deployments && (
+              {(page.frontmatter.deployments ||
+                page.frontmatter.repositories) && (
                 <AsideContent style={{ marginLeft: "0" }}>
                   <SideContent page={page} />
                 </AsideContent>
@@ -108,6 +126,10 @@ export const query = graphql`
         }
         imageAlt
         deployments {
+          title
+          url
+        }
+        repositories {
           title
           url
         }
