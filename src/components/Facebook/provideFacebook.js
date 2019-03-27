@@ -30,18 +30,13 @@ const provideFB = WrappedComponent => {
         const fjs = window.document.getElementsByTagName("script")[0];
         const js = window.document.createElement("script");
         js.id = "facebook-jssdk";
-        js.src =
-          "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2";
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
 
         fjs.parentNode.insertBefore(js, fjs);
       }).then(FB => this.setState({ FB }));
     }
 
     render() {
-      if (!this.state.FB) {
-        return null;
-      }
-
       return <WrappedComponent FB={this.state.FB} {...this.props} />;
     }
   };
