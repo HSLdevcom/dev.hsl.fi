@@ -22,7 +22,7 @@
     ]
   },
   "dependencies": {
-    "gatsby": "^2.0.76",
+    "gatsby": "^2.3.2",
     "gatsby-image": "^2.0.26",
     "gatsby-plugin-offline": "^2.0.22",
     "gatsby-plugin-react-helmet": "^3.0.5",
@@ -35,8 +35,8 @@
     "gatsby-transformer-remark": "^2.2.2",
     "gatsby-transformer-sharp": "^2.1.10",
     "moment": "^2.24.0",
-    "react": "^16.5.1",
-    "react-dom": "^16.5.1",
+    "react": "^16.8.5",
+    "react-dom": "^16.8.5",
     "react-helmet": "^5.2.0",
     "react-media": "^1.9.2",
     "react-twitter-widgets": "^1.7.1",
