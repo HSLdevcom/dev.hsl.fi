@@ -46,6 +46,6 @@ const templateComponentForNode = node => {
   } else if (node.fields.slug.startsWith("/projects/")) {
     return path.resolve(`./src/templates/project.js`);
   } else {
-    return null;
+    return path.resolve(`./src/templates/page.js`);
   }
 };
