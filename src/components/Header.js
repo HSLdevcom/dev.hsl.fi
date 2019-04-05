@@ -5,6 +5,7 @@ import Img from "gatsby-image";
 import Responsive from "./Responsive";
 
 import typography from "../utils/typography";
+import MenuButton from "./MenuButton";
 
 const { rhythm, options, adjustFontSizeTo } = typography;
 
@@ -15,21 +16,21 @@ const NavLink = props => (
       color: `white`,
       fontWeight: `bold`,
       fontFamily: options.headerFontFamily,
-      marginRight: rhythm(2 / 3)
+      marginRight: props.mobile ? 0 : rhythm(2 / 3)
     }}
   >
     {props.children}
   </Link>
 );
 
-const navLinks = [
-  <NavLink key="/projects/" to="/projects/">
+const NavLinks = ({ mobile }) => [
+  <NavLink key="/projects/" to="/projects/" mobile={mobile}>
     Projects
   </NavLink>,
-  <NavLink key="/apis/" to="/apis/">
+  <NavLink key="/apis/" to="/apis/" mobile={mobile}>
     APIs
   </NavLink>,
-  <NavLink key="/contact/" to="/contact/">
+  <NavLink key="/contact/" to="/contact/" mobile={mobile}>
     Contact
   </NavLink>
 ];
@@ -55,54 +56,30 @@ const HSLLogo = ({ image }) => (
   </a>
 );
 
-const DesktopHeader = ({ backgroundColor, logo, title }) => {
-  return (
-    <div style={{ margin: `0 auto` }}>
-      <header
-        style={{
-          padding: rhythm(1),
-          display: `flex`,
-          justifyContent: `start`,
-          alignItems: `center`,
-          flexWrap: `wrap`,
-          background: backgroundColor
-        }}
-      >
-        <HSLLogo image={logo} />
-        <Link
-          to="/"
-          style={{
-            flexGrow: "1",
-            textShadow: `none`,
-            backgroundImage: `none`,
-            marginRight: rhythm(1),
-            color: `white`
-          }}
-        >
-          <h3 style={{ display: `inline` }}>{title}</h3>
-        </Link>
-        <nav style={{ display: `inline-block` }}>{navLinks}</nav>
-      </header>
-    </div>
-  );
-};
+class Header extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-const MobileHeader = ({ backgroundColor, logo, title }) => {
-  return (
-    <div
-      style={{
-        margin: `0 auto`,
-        position: `sticky`,
-        width: `100%`,
-        top: `0`,
-        zIndex: `3`
-      }}
-    >
+    this.state = { mobileMenuOpen: false };
+  }
+
+  render() {
+    const { backgroundColor, logo, title, mobile } = this.props;
+
+    return (
       <header
         style={{
-          marginBottom: rhythm(1 / 3),
-          padding: rhythm(1 / 2),
-          background: backgroundColor
+          margin: `0 auto`,
+          background: backgroundColor,
+          padding: rhythm(mobile ? 1 / 2 : 1),
+          ...(mobile
+            ? {
+                position: `sticky`,
+                width: `100%`,
+                top: `0`,
+                zIndex: `3`
+              }
+            : {})
         }}
       >
         <div
@@ -110,7 +87,7 @@ const MobileHeader = ({ backgroundColor, logo, title }) => {
             display: `flex`,
             justifyContent: `start`,
             alignItems: `center`,
-            flexWrap: `wrap`
+            flexWrap: `nowrap`
           }}
         >
           <HSLLogo image={logo} />
@@ -120,35 +97,47 @@ const MobileHeader = ({ backgroundColor, logo, title }) => {
               flexGrow: "1",
               textShadow: `none`,
               backgroundImage: `none`,
+              marginRight: rhythm(1),
               color: `white`
             }}
           >
-            <h3
+            <h1
               style={{
-                margin: `0`,
                 display: `inline`,
-                ...adjustFontSizeTo("15px")
+                ...(mobile
+                  ? adjustFontSizeTo("15px")
+                  : adjustFontSizeTo("22px"))
               }}
             >
               {title}
-            </h3>
+            </h1>
           </Link>
+          {mobile ? (
+            <MenuButton
+              style={{ width: 30, height: 30, marginRight: rhythm(1 / 2) }}
+              onChange={open => this.setState({ mobileMenuOpen: open })}
+            />
+          ) : (
+            <nav style={{ display: `inline-block` }}>
+              <NavLinks />
+            </nav>
+          )}
         </div>
         <nav
           style={{
-            display: `flex`,
-            justifyContent: `space-around`,
-            alignItems: `center`,
-            flexWrap: `wrap`,
-            marginTop: rhythm(1 / 3)
+            marginTop: rhythm(1 / 2),
+            display: this.state.mobileMenuOpen ? "flex" : "none",
+            alignItems: "center",
+            flexDirection: "column",
+            justifyContent: "center"
           }}
         >
-          {navLinks}
+          <NavLinks mobile />
         </nav>
       </header>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default () => (
   <StaticQuery
@@ -179,22 +168,20 @@ export default () => (
       }
     `}
     render={data => (
-      <Responsive
-        mobile={
-          <MobileHeader
+      <Responsive>
+        {desktop => (
+          <Header
             backgroundColor={data.site.siteMetadata.colors.primary}
-            logo={data.mobileLogo.childImageSharp.fixed}
+            logo={
+              desktop
+                ? data.desktopLogo.childImageSharp.fixed
+                : data.mobileLogo.childImageSharp.fixed
+            }
             title={data.site.siteMetadata.title}
+            mobile={!desktop}
           />
-        }
-        desktop={
-          <DesktopHeader
-            backgroundColor={data.site.siteMetadata.colors.primary}
-            logo={data.desktopLogo.childImageSharp.fixed}
-            title={data.site.siteMetadata.title}
-          />
-        }
-      />
+        )}
+      </Responsive>
     )}
   />
 );
